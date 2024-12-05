@@ -1,0 +1,44 @@
+<header>
+    <div class="logo">SkinLab</div>
+    <ul class="tabs">
+        <li><a href="/" class="<%= activeTab === 'list' ? 'active' : '' %>">Home</a></li>
+        <li><a href="/collection" class="<%= activeTab === 'add' ? 'active' : '' %>">My Collection</a></li>
+        <li><a href="/game" class="<%= activeTab === 'API' ? 'active' : '' %>">Game</a></li>
+        <li><a href="/skin" class="<%= activeTab === 'chart' ? 'active' : '' %>">Skin Catalogue</a></li>
+    </ul>
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+        }
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .tabs li {
+            margin-right: 20px;
+        }
+        .tabs a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        .tabs a.active, .tabs a:hover {
+            background-color: #575757;
+        }
+        body{
+            margin: 0px;
+        }
+    </style>
+</header>
