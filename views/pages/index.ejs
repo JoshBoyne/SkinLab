@@ -1,18 +1,28 @@
 <html>
     <head>
-
+        <link rel="stylesheet" href="/css/style.css" />
     </head>
-    <body>
+    <body class ="home-body">
+        <%- include('../partials/header', { activeTab: 'list' }) %>
+        <!-- Main Content Section -->
+        <div class="home-search">
+            <input type="text" placeholder="Search..." class="search-input" />
+            <button class="search-button">🔍</button>
+        </div>
 
-        <%- include('partials/header', { activeTab: 'list' }) %>
-        <!-- List Items -->
-    <div class="tab-content">
-        <h2>Test</h2>
-        
-    </div>
-
-    
+        <div class="container">
+            <div class="content-box">
+                <h2>Section 1</h2>
+                <p>This is the first content box.</p>
+            </div>
+            <div class="content-box">
+                <h2>Section 2</h2>
+                <p>This is the second content box.</p>
+            </div>
+            <div class="content-box">
+                <h2>Section 3</h2>
+                <p>This is the third content box.</p>
+            </div>
+        </div>
     </body>
-
-
 </html>

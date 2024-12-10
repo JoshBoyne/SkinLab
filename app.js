@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const fetchData = require("./modules/cache_data.js");
 const app = express();
 const PORT = 3000;
-
+const items = [];
 
 
 // Middleware
@@ -13,25 +13,25 @@ app.set("view engine", "ejs"); // Set EJS as the view engine
 
 
 
-//Pages
+//Home Page
 app.get("/", (req, res) => {
-  res.render("index", { items, activeTab: "home" });
+  res.render("pages/index", { activeTab: "home", items });
 });
 
-// Collection Page
+//Collection Page
 app.get("/collection", (req, res) => {
-  res.render("collection", { activeTab: "collection" });
+  res.render("pages/collection", { activeTab: "collection" });
 });
 
-// Game Page
+//Game Page
 app.get("/game", (req, res) => {
-    res.render("game", { activeTab: "game" });
-  });
+  res.render("pages/game", { activeTab: "game" });
+});
 
-  // Skin Page
+//Skin Page
 app.get("/skin", (req, res) => {
-    res.render("skin", { activeTab: "skin" });
-  });
+  res.render("pages/skin", { activeTab: "skin" });
+});
 
 
   

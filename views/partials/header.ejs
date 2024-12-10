@@ -1,44 +1,96 @@
 <header>
     <div class="logo">SkinLab</div>
+<nav class = "navbar">
     <ul class="tabs">
-        <li><a href="/" class="<%= activeTab === 'list' ? 'active' : '' %>">Home</a></li>
-        <li><a href="/collection" class="<%= activeTab === 'add' ? 'active' : '' %>">My Collection</a></li>
-        <li><a href="/game" class="<%= activeTab === 'API' ? 'active' : '' %>">Game</a></li>
-        <li><a href="/skin" class="<%= activeTab === 'chart' ? 'active' : '' %>">Skin Catalogue</a></li>
+        <li><a href="/" class="<%= activeTab === 'home' ? 'active' : '' %>">Home</a></li>
+        <li><a href="/collection" class="<%= activeTab === 'collection' ? 'active' : '' %>">My Collection</a></li>
+        <li><a href="/game" class="<%= activeTab === 'game' ? 'active' : '' %>">Game</a></li>
+        <li><a href="/skin" class="<%= activeTab === 'skin' ? 'active' : '' %>">Skin Catalogue</a></li>
     </ul>
-    <style>
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-        }
-        header .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .tabs {
-            display: flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .tabs li {
-            margin-right: 20px;
-        }
-        .tabs a {
-            text-decoration: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-        .tabs a.active, .tabs a:hover {
-            background-color: #575757;
-        }
-        body{
-            margin: 0px;
-        }
-    </style>
+</nav>
+<div class="search-container">
+    <input type="text" placeholder="Search..." class="search-input" />
+    <button class="search-button">🔍</button>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+    
+    header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding: 20px 20px;
+        background-color: #3A506B;
+        color: white;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+    }
+
+    .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: #E5E5E5;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: center; /* Center the navbar items */
+    }
+
+    .tabs {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .tabs li {
+        margin: 0 10px; /* Adjust spacing between tabs */
+    }
+
+    .tabs a {
+        text-decoration: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
+    .tabs a.active,
+    .tabs a:hover {
+        background-color: #575757;
+        color: #FCA311; /* Text color on highlight */
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-input {
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    .search-button {
+        margin-left: 5px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #575757;
+        color: white;
+        cursor: pointer;
+    }
+
+    .search-button:hover {
+        background-color: #444;
+    }
+
+    body {
+        margin: 0px;
+    }
+</style>
 </header>
