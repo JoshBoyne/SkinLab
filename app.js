@@ -4,45 +4,40 @@ const fetchData = require("./modules/cache_data.js");
 const app = express();
 const PORT = 3000;
 
-// In-memory data store for simplicity
-/*
-let items = [
-  { id: 1, name: "Item 1", value: 10 },
-  { id: 2, name: "Item 2", value: 20 },
-  { id: 3, name: "Item 3", value: 30 },
-];
 
-
-
-*/
-
-let items = [];
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true })); // Parse form data
 app.use(express.static("public")); // Serve static files
 app.set("view engine", "ejs"); // Set EJS as the view engine
 
-// List Data
-app.get("/refresh", async (req, res) => {
-  items = await fetchData();
-  console.log(items);
-  res.render("api", { items: items, activeTab: "API" });
-  //res.redirect("/");
-});
 
-// 1. Index Page: Show list of items with add and delete actions
+
+//Pages
 app.get("/", (req, res) => {
-  res.render("index", { items, activeTab: "list" });
+  res.render("index", { items, activeTab: "home" });
 });
 
-// Add Item Page
-app.get("/add", (req, res) => {
-  res.render("add", { activeTab: "add" });
+// Collection Page
+app.get("/collection", (req, res) => {
+  res.render("collection", { activeTab: "collection" });
 });
 
-// Handle Add Item Form Submission
-app.post("/add", (req, res) => {
+// Game Page
+app.get("/game", (req, res) => {
+    res.render("game", { activeTab: "game" });
+  });
+
+  // Skin Page
+app.get("/skin", (req, res) => {
+    res.render("skin", { activeTab: "skin" });
+  });
+
+
+  
+
+// Use for adding skin to collection
+app.post("/skin", (req, res) => {
   const { name, value } = req.body;
 
   // Ensure both fields are provided
@@ -55,17 +50,17 @@ app.post("/add", (req, res) => {
   res.redirect("/"); // Redirect back to the listing page
 });
 
-// Edit Item Form
+// Use for collection page
 app.get("/edit/:id", (req, res) => {
   const item = items.find((item) => item.id === parseInt(req.params.id));
   if (item) {
-    res.render("form", { item, activeTab: "add" });
+    res.render("form", { item, activeTab: "collection" });
   } else {
     res.status(404).send("Item not found");
   }
 });
 
-// Update Item
+// Use for collection page
 app.post("/update", (req, res) => {
   const { id, name, value } = req.body;
   const itemIndex = items.findIndex((item) => item.id === parseInt(id));
