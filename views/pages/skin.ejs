@@ -1,18 +1,79 @@
 <html>
     <head>
-
+        <link rel="stylesheet" href="/css/catalogue.css">
     </head>
     <body>
-
         <%- include('../partials/header', { activeTab: 'list' }) %>
-        <!-- List Items -->
-    <div class="tab-content">
-        <h2>Skin Test</h2>
-        
-    </div>
 
-    
+        <% 
+          const uniqueWeapons = [...new Set(items.map(item => item.weapon))];
+        %>
+
+        <div class="tab-content">
+            <h2>Skin Catalogue</h2>
+            <form action="/refreshData" method="POST" style="display: inline;">
+                <input type="submit" value="Refresh Data">
+            </form>
+        </div>
+
+        <div class="DisplayWeapons">
+            <h3>Weapons List</h3>
+            
+            <!-- Dropdown to select weapon -->
+            <div class="weapon-selector">
+                <label for="weaponSelect">Select a Weapon:</label>
+                <select id="weaponSelect">
+                    <!-- Instead of 'all', we start directly with "Desert Eagle" as the default -->
+                    <% uniqueWeapons.forEach(weapon => { %>
+                      <option value="<%= weapon %>" <%= (weapon === "Desert Eagle") ? "selected" : "" %>><%= weapon %></option>
+                    <% }) %>
+                </select>
+            </div>
+            
+            <div class="weapons-container">
+                <ul>
+                    <% items.forEach(item => { %>
+                      <li class="weapon-item" data-weapon-name="<%= item.weapon %>">
+                        <img src="<%= item.image %>" alt="weapon image" class="weapon-image">
+                        <div class="weapon-name"><%= item.weapon %></div>
+                        <div class="pattern-name"><%= item.pattern %></div>
+                        <div class="actions">
+                          <form action="/collection" method="POST" style="display: inline;">
+                            <input type="hidden" name="id" value="<%= item.id %>">
+                            <button type="submit">Add to Collection</button>
+                          </form>
+                          <!-- <form action="/delete" method="POST" style="display: inline;">
+                            <input type="hidden" name="id" value="<%= item.id %>">
+                            <button type="submit">Delete</button>
+                          </form> -->
+                        </div>
+                      </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+          const weaponSelect = document.getElementById('weaponSelect');
+          const weaponItems = document.querySelectorAll('.weapon-item');
+
+          function filterWeaponsBySelected() {
+            const selectedWeapon = weaponSelect.value;
+            weaponItems.forEach(item => {
+              const itemWeapon = item.getAttribute('data-weapon-name');
+              if (itemWeapon === selectedWeapon) {
+                item.style.display = 'flex';  // show item
+              } else {
+                item.style.display = 'none';  // hide item
+              }
+            });
+          }
+
+          // Listen to changes on the dropdown
+          weaponSelect.addEventListener('change', filterWeaponsBySelected);
+
+          // Filter on page load to show only "Desert Eagle" by default
+          document.addEventListener('DOMContentLoaded', filterWeaponsBySelected);
+        </script>
     </body>
-
-
 </html>

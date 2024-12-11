@@ -12,6 +12,7 @@ async function fetchData() {
       weapon: skin.weapon.name, // Weapon name
       pattern: skin.pattern ? skin.pattern.name : "N/A", // Safely access pattern name
       rarity: skin.rarity.name, // Rarity name
+      image: skin.image
     }));
   } catch (error) {
     console.error("Error fetching CS:GO skins:", error.message);

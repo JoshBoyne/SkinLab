@@ -3,9 +3,16 @@ const bodyParser = require("body-parser");
 const fetchData = require("./modules/cache_data.js");
 const app = express();
 const PORT = 3000;
-const items = [];
+let items = [];
+const fs = require("fs");
+var myCSS = {
+  //headerStyle : fs.readFileSync('public/css/header.css', 'utf8')
+  collectionStyle : fs.readFileSync('public/css/catalogue.css', 'utf8')
+};
 
-
+(async () => {
+  items = await fetchData();
+})();
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true })); // Parse form data
 app.use(express.static("public")); // Serve static files
@@ -18,9 +25,20 @@ app.get("/", (req, res) => {
   res.render("pages/index", { activeTab: "home", items });
 });
 
-//Collection Page
-app.get("/collection", (req, res) => {
-  res.render("pages/collection", { activeTab: "collection" });
+/*  @Authour Sean Byrne - Student Number: 23343362
+    ---Skin Catalogue Section---
+    This section contains the a list of every weapon type with corresponding skin patterns.
+    An image of every weapon with a skin pattern will have a button allowing the user to add to a collection (this would be the Add for the CRUD functionality).
+    CRUD FUNCTIONALITY - within the collection, users can delete (remove weapon from collection) or update (change weapon from collection to another weapon).
+*/
+app.get("/skin",(req, res) => {
+  res.render("pages/skin", {myCSS: myCSS, items: items, activeTab: "skin" });
+});
+
+app.post("/refreshData", async (req, res) => {
+ collection = []; 
+ //console.log(items);
+  res.render('pages/skin', { items, activeTable: "skin"});
 });
 
 //Game Page
@@ -28,27 +46,22 @@ app.get("/game", (req, res) => {
   res.render("pages/game", { activeTab: "game" });
 });
 
-//Skin Page
-app.get("/skin", (req, res) => {
-  res.render("pages/skin", { activeTab: "skin" });
-});
+//Collection Page
+let collection = []; // Store collected items
 
-
-  
-
-// Use for adding skin to collection
-app.post("/skin", (req, res) => {
-  const { name, value } = req.body;
-
-  // Ensure both fields are provided
-  if (!name || !value) {
-    return res.status(400).send("Name and value are required.");
+app.post("/collection", (req, res) => {
+  const weaponid = parseInt(req.body.id, 10);
+  const weapon = items.find(item => item.id === weaponid);
+  if (weapon && !collection.find(item => item.id === weaponid)) {
+    collection.push(weapon); // Add the weapon to the collection
   }
-
-  const id = items.length ? items[items.length - 1].id + 1 : 1;
-  items.push({ id, name, value: parseInt(value) });
-  res.redirect("/"); // Redirect back to the listing page
+  res.redirect("/skin");
 });
+
+app.get("/collection", (req, res) => {
+  res.render("pages/collection", { items: collection, activeTab: "collection" });
+});
+
 
 // Use for collection page
 app.get("/edit/:id", (req, res) => {
@@ -73,8 +86,8 @@ app.post("/update", (req, res) => {
 // 3. Handle Deleting an Item
 app.post("/delete", (req, res) => {
   const { id } = req.body;
-  items = items.filter((item) => item.id !== parseInt(id));
-  res.redirect("/");
+  collection = collection.filter((item) => item.id !== parseInt(id));
+  res.redirect("collection");
 });
 
 // 4. Chart Page: Render the chart page
