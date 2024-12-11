@@ -2,6 +2,9 @@
 <head>
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/pie_chart.js"></script>
+    <script src="/js/bar_chart.js"></script>
 </head>
 <body class="home-body">
     <%- include('../partials/header', { activeTab: 'list' }) %>
@@ -13,12 +16,13 @@
 
     <!-- Main Content Section -->
     <div class="container">
+
         <div class="skin-carousel">
             <h2>Skin Carousel</h2>
             <button class="carousel-button left-button">⮜</button>
             <div class="carousel">
-                <% if (skins.length > 0) { %>
-                    <% skins.forEach((skin) => { %>
+                <% if (carouselSkins && carouselSkins.length > 0) { %>
+                    <% carouselSkins.forEach((skin) => { %>
                         <div class="carousel-item">
                             <img src="<%= skin.image %>" alt="<%= skin.weapon %> - <%= skin.pattern %>" />
                             <p><%= skin.weapon %> - <%= skin.pattern %></p>
@@ -35,8 +39,8 @@
         <div class="featured-skins">
             <h2>Featured Skins</h2>
             <div class="featured-grid">
-                <% if (skins.length > 0) { %>
-                    <% skins.slice(0, 20).forEach((skin) => { %> 
+                <% if (featuredSkins && featuredSkins.length > 0) { %>
+                    <% featuredSkins.forEach((skin) => { %>
                         <div class="featured-item">
                             <img src="<%= skin.image %>" alt="<%= skin.weapon %> - <%= skin.pattern %>" />
                             <p><%= skin.weapon %> - <%= skin.pattern %></p>
@@ -51,8 +55,29 @@
 
         <div class="chart-section">
             <h2>Chart</h2>
-            <p>This section will display a pie or bar chart.</p>
+            <div class="chart-container">
+                <!-- Pie Chart -->
+                <div class="chart pie-chart">
+                    <h3>Pie Chart</h3>
+                    <select id="pieChartOptions" class="chart-select">
+                        <option value="weaponType">Skins by Weapon Type</option>
+                        <option value="rarity">Skins by Rarity</option>
+                    </select>
+                    <canvas id="pieChart"></canvas>
+                </div>
+        
+                <!-- Bar Graph -->
+                <div class="chart bar-chart">
+                    <h3>Bar Graph</h3>
+                    <select id="barChartOptions" class="chart-select">
+                        <option value="weaponType">Skins by Weapon Type</option>
+                        <option value="rarity">Skins by Rarity</option>
+                    </select>
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
         </div>
+        
 
 
     </div>

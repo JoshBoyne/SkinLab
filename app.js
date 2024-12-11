@@ -13,13 +13,48 @@ app.set("view engine", "ejs"); // Set EJS as the view engine
 // Home Page
 app.get("/", async (req, res) => {
   try {
-    const skins = await fetchData(); // Fetch one skin per weapon type
-    res.render("pages/index", { activeTab: "home", items, skins });
+    const skins = await fetchData(); // Fetch all skins
+    const uniqueWeaponSkins = getUniqueWeaponSkins(skins); // Get one skin per weapon type
+
+    // Render the homepage and pass data to the view
+    res.render("pages/index", {
+      activeTab: "home",
+      carouselSkins: uniqueWeaponSkins, // Pass this to the carousel
+      featuredSkins: uniqueWeaponSkins.slice(0, 20), // Take the first 20 skins for the featured section
+    });
   } catch (error) {
     console.error("Error in home route:", error.message);
-    res.render("pages/index", { activeTab: "home", items, skins: [] }); // Pass empty array on error
+    res.render("pages/index", {
+      activeTab: "home",
+      carouselSkins: [], // Default empty data to avoid errors
+      featuredSkins: [], // Default empty data
+    });
   }
 });
+
+function getUniqueWeaponSkins(skins) {
+  const uniqueSkins = {};
+  skins.forEach((skin) => {
+    if (!uniqueSkins[skin.weapon]) {
+      uniqueSkins[skin.weapon] = skin; // Add first occurrence of each weapon type
+    }
+  });
+  return Object.values(uniqueSkins); // Return as an array
+}
+
+// API endpoint for chart data
+app.get("/api/skins", async (req, res) => {
+  try {
+    const skins = await fetchData();
+    res.json(skins);
+  } catch (error) {
+    console.error("Error fetching skins for API:", error.message);
+    res.status(500).json({ error: "Failed to fetch skins data" });
+  }
+});
+
+
+
 
 // Collection Page
 app.get("/collection", (req, res) => {
