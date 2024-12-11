@@ -1,43 +1,53 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Check if the chart canvas exists on the page
-    const chartCanvas = document.getElementById("chart");
-    if (chartCanvas) {
-      // Fetch chart data from the server
-      fetch("/api/chart-data")
-        .then((response) => {
-          if (!response.ok) throw new Error("Failed to fetch chart data");
-          return response.json();
-        })
-        .then((data) => {
-          // Render the chart using Chart.js
-          const ctx = chartCanvas.getContext("2d");
-          new Chart(ctx, {
-            type: "bar", // You can change this to 'line', 'pie', etc.
-            data: {
-              labels: data.labels,
-              datasets: [
-                {
-                  label: "Values",
-                  data: data.values,
-                  backgroundColor: "rgba(75, 192, 192, 0.2)",
-                  borderColor: "rgba(75, 192, 192, 1)",
-                  borderWidth: 1,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                },
-              },
-            },
-          });
-        })
-        .catch((error) => {
-          console.error("Error loading chart data:", error.message);
-        });
-    }
+document.addEventListener("DOMContentLoaded", async () => {
+  const pieChartCanvas = document.getElementById("pieChart");
+  const pieChartOptions = document.getElementById("pieChartOptions");
+
+  const data = await fetchSkinsData(); // Fetch skins data dynamically
+
+  const chartData = {
+      weaponType: countByCategory(data, "weapon"),
+      rarity: countByCategory(data, "rarity"),
+  };
+
+  let currentPieChart = createPieChart(pieChartCanvas, chartData.weaponType);
+
+  pieChartOptions.addEventListener("change", (event) => {
+      const selectedOption = event.target.value;
+      currentPieChart.destroy(); // Destroy the old chart
+      currentPieChart = createPieChart(pieChartCanvas, chartData[selectedOption]);
   });
-  
+
+  function createPieChart(canvas, data) {
+    return new Chart(canvas, {
+        type: "pie",
+        data: {
+            labels: Object.keys(data), // Keep labels for accessibility
+            datasets: [
+                {
+                    data: Object.values(data),
+                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#F44336"],
+                },
+            ],
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false, // Hide the legend
+                },
+            },
+        },
+    });
+}
+
+  async function fetchSkinsData() {
+      const response = await fetch("/api/skins");
+      return await response.json();
+  }
+
+  function countByCategory(skins, category) {
+      return skins.reduce((acc, skin) => {
+          acc[skin[category]] = (acc[skin[category]] || 0) + 1;
+          return acc;
+      }, {});
+  }
+});

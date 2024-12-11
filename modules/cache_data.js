@@ -5,22 +5,13 @@ async function fetchData() {
   try {
     const response = await axios.get("https://bymykel.github.io/CSGO-API/api/en/skins.json");
 
-    // Group skins by weapon type and take only the first skin from each group
-    const groupedSkins = response.data.reduce((acc, skin) => {
-      const weapon = skin.weapon.name;
-      if (!acc[weapon]) {
-        acc[weapon] = {
-          weapon,
-          pattern: skin.pattern ? skin.pattern.name : "N/A",
-          rarity: skin.rarity.name,
-          image: skin.image || "",
-        };
-      }
-      return acc;
-    }, {});
-
-    // Convert the grouped object to an array
-    cachedData = Object.values(groupedSkins);
+    // Process and return all skins with necessary fields
+    cachedData = response.data.map(skin => ({
+      weapon: skin.weapon.name,
+      pattern: skin.pattern ? skin.pattern.name : "N/A",
+      rarity: skin.rarity.name,
+      image: skin.image || "",
+    }));
   } catch (error) {
     console.error("Error fetching CS:GO skins:", error.message);
     cachedData = [];
