@@ -15,6 +15,7 @@
     <div class="container">
         <div class="skin-carousel">
             <h2>Skin Carousel</h2>
+            <button class="carousel-button left-button">⮜</button>
             <div class="carousel">
                 <% if (skins.length > 0) { %>
                     <% skins.forEach((skin) => { %>
@@ -27,15 +28,33 @@
                     <p>No skins available to display.</p>
                 <% } %>
             </div>
+            <button class="carousel-button right-button">⮞</button>
         </div>
+
+
         <div class="featured-skins">
             <h2>Featured Skins</h2>
-            <p>This section will highlight the featured skins.</p>
+            <div class="featured-grid">
+                <% if (skins.length > 0) { %>
+                    <% skins.slice(0, 20).forEach((skin) => { %> 
+                        <div class="featured-item">
+                            <img src="<%= skin.image %>" alt="<%= skin.weapon %> - <%= skin.pattern %>" />
+                            <p><%= skin.weapon %> - <%= skin.pattern %></p>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No featured skins available.</p>
+                <% } %>
+            </div>
         </div>
+
+
         <div class="chart-section">
             <h2>Chart</h2>
             <p>This section will display a pie or bar chart.</p>
         </div>
+
+
     </div>
 </body>
 </html>
