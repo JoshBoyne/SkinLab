@@ -9,7 +9,7 @@
     </ul>
 </nav>
 <div class="search-container">
-    <input type="text" placeholder="Search..." class="search-input" />
+    <input type="text" placeholder="Search..." class="navsearch-input" />
     <button class="search-button">🔍</button>
 </div>
 
@@ -21,11 +21,13 @@
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        padding: 20px 20px;
+        padding: 0px 20px;
+        height: 60px;
         background-color: #3A506B;
         color: white;
         font-family: 'Open Sans', sans-serif;
         font-size: 20px;
+        box-sizing: border-box;
     }
 
     .logo {
@@ -36,7 +38,8 @@
 
     .navbar {
         display: flex;
-        justify-content: center; /* Center the navbar items */
+        justify-content: center;
+        align-items: center; /* Align items vertically */
     }
 
     .tabs {
@@ -55,6 +58,8 @@
         color: white;
         padding: 10px 15px;
         border-radius: 5px;
+        display: inline-block; 
+        text-align: center;
     }
 
     .tabs a.active,
@@ -65,14 +70,18 @@
 
     .search-container {
         display: flex;
-        align-items: center;
+            align-items: center;
+            height: 100%;
     }
 
-    .search-input {
-        padding: 5px;
-        border: none;
+    .navsearch-input {
+        width: 300px;
+        border: 1px solid #FFD56B;
         border-radius: 5px;
         outline: none;
+        font-family: 'Open Sans', sans-serif;
+        padding: 6px; /* Adjust padding without affecting height */
+        box-sizing: border-box;
     }
 
     .search-button {
@@ -92,5 +101,6 @@
     body {
         margin: 0px;
     }
+    
 </style>
 </header>
