@@ -27,20 +27,20 @@ app.set("view engine", "ejs"); // Set EJS as the view engine
 app.get("/", async (req, res) => {
   try {
     const skins = await fetchData(); // Fetch all skins
-    const uniqueWeaponSkins = getUniqueWeaponSkins(skins); // Get one skin per weapon type
+    const uniqueWeaponSkins = getUniqueWeaponSkins(skins); 
 
-    // Render the homepage and pass data to the view
+    
     res.render("pages/index", {
       activeTab: "home",
-      carouselSkins: uniqueWeaponSkins, // Pass this to the carousel
-      featuredSkins: uniqueWeaponSkins.slice(0, 20), // Take the first 20 skins for the featured section
+      carouselSkins: uniqueWeaponSkins, 
+      featuredSkins: uniqueWeaponSkins.slice(0, 20), 
     });
   } catch (error) {
     console.error("Error in home route:", error.message);
     res.render("pages/index", {
       activeTab: "home",
-      carouselSkins: [], // Default empty data to avoid errors
-      featuredSkins: [], // Default empty data
+      carouselSkins: [], 
+      featuredSkins: [], 
     });
   }
 });
@@ -49,10 +49,10 @@ function getUniqueWeaponSkins(skins) {
   const uniqueSkins = {};
   skins.forEach((skin) => {
     if (!uniqueSkins[skin.weapon]) {
-      uniqueSkins[skin.weapon] = skin; // Add first occurrence of each weapon type
+      uniqueSkins[skin.weapon] = skin; 
     }
   });
-  return Object.values(uniqueSkins); // Return as an array
+  return Object.values(uniqueSkins); 
 }
 
 // API endpoint for chart data

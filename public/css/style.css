@@ -9,6 +9,7 @@ body.home-body {
     padding: 0;
 }
 
+
 /* Search Bar Styling */
 .home-search {
     display: flex;
@@ -186,28 +187,27 @@ body.home-body {
 
 .chart-container {
     display: flex;
-    justify-content: space-between; /* Space out the charts */
-    align-items: flex-start; /* Align items at the top */
-    gap: 20px; /* Space between the charts */
-    flex-wrap: wrap; /* Ensure responsiveness for smaller screens */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap; 
 }
 
 .chart {
-    flex: 1; /* Make both charts take equal width */
-    max-width: 45%; /* Limit the maximum width of each chart */
+    flex: 1;
+    max-width: 45%;
     padding: 20px;
-    background-color: #f4f4f4; /* Light background for contrast */
+    background-color: #f4f4f4;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better appearance */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     text-align: center;
 }
 
-/* Ensure the canvas elements are the same size */
 canvas {
-    width: 100%; /* Full width of the container */
-    max-height: 260px; /* Set the same height for both charts */
-    height: auto; /* Allow the height to adjust dynamically */
+    width: 100%;
+    max-height: 260px;
+    height: auto; 
 }
 
 .chart-select {
@@ -225,41 +225,13 @@ canvas {
 
 
 
-
-
-
-
-
-
-
-
-
-
-/* SKIN PAGE */
-.skin-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #5C6784; 
-    color: #2E2E2E;
-    margin: 0;
-    padding: 0;
-}
-
-
 /*GAME PAGE*/
-.game-body {
+body.game-body {
     font-family: 'Open Sans', sans-serif;
     background-color: #5C6784; 
-    color: #2E2E2E;
+    color: #2E2E2E; 
     margin: 0;
     padding: 0;
 }
 
 
-/*COLLECTION PAGE*/
-.collection-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #5C6784; 
-    color: #2E2E2E;
-    margin: 0;
-    padding: 0;
-}

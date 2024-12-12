@@ -5,6 +5,10 @@ async function fetchData() {
   try {
     const response = await axios.get("https://bymykel.github.io/CSGO-API/api/en/skins.json");
 
+
+    
+ 
+
     // Transform the response to include only the first 100 skins
     cachedData = response.data.slice(0,1808).map((skin, index) => ({
       id: index + 1, // Assign a new ID
@@ -15,6 +19,7 @@ async function fetchData() {
       
     // Process and return all skins with necessary fields
   /*  cachedData = response.data.map(skin => ({
+
       weapon: skin.weapon.name,
       pattern: skin.pattern ? skin.pattern.name : "N/A",
       rarity: skin.rarity.name,
