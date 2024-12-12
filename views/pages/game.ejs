@@ -2,20 +2,51 @@
     <head>
         <title>SkinLab</title>
         <link rel="icon" sizes="180x180" href="/img/SkinLogo.webp">
-
-        <link rel="stylesheet" href="/css/style.css" />
-        <script src="/js/script.js"></script>
+        <link rel="stylesheet" href="/css/style.css"/>
         <title>SkinLab</title>
     </head>
     <body class = "game-body">
 
         <%- include('../partials/header', { activeTab: 'list' }) %>
-        <!-- List Items -->
-    <div class="tab-content">
-        <h2>Game Test</h2>
-        
-    </div>
 
+   
+        <div class="game-container">
+            <h1>Game Page</h1>
+            <div class="games">
+                <!-- Case Opening Simulator -->
+                <div class="game-section case-opening">
+                    <h2>Case Opening Simulator</h2>
+                    <p>Try your luck! Select a case to view its skins and start opening.</p>
+                    <div class="case-controls">
+                        <select id="caseDropdown" class="case-dropdown">
+                            <option value="" disabled selected>Select a Case</option>
+                        </select>
+                        <button id="confirmButton" class="case-confirm-button">Confirm</button>
+                        <button id="previewButton" class="case-preview-button" style="display: none;">Preview Skins</button>
+                        <button id="openButton" class="case-open-button" style="display: none;">Open</button>
+                    </div>
+                    <div id="crateImageContainer" class="crate-image-container">
+                       
+                    </div>
+                    <div id="randomSkinContainer" class="random-skin-container">
+                       
+                    </div>
+                    <div id="skinsDisplay" class="skins-grid">
+                      
+                    </div>
+                </div>
+    
+                <!-- Trade-Up Simulator -->
+                <div class="game-section trade-up">
+                    <h2>Trade-Up Simulator</h2>
+                    <p>Combine skins to trade up for a higher-tier skin.</p>
+                    <button class="game-button" id="tradeUpSimulator">Play Trade-Up Simulator</button>
+                </div>
+            </div>
+        </div>
+    
+        <script src="/js/case_simulator.js"></script>
+        <script src="/js/trade_up_simulator.js"></script>
     
     </body>
 
