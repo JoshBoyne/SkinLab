@@ -80,15 +80,10 @@ app.post("/refreshData", async (req, res) => {
  collection = []; 
  //console.log(items);
   res.render('pages/skin', { items, activeTable: "skin"});
-
-
-
-
-// Collection Page
-app.get("/collection", (req, res) => {
-  res.render("pages/collection", { activeTab: "collection" });
-
 });
+
+
+
 
 // Game Page
 app.get("/game", (req, res) => {
@@ -111,7 +106,7 @@ app.get("/skin", async (req, res) => {
 // Use for adding skin to collection
 app.post("/skin", (req, res) => {
   const { name, value } = req.body;
-
+});
 
 app.post("/collection", (req, res) => {
   const weaponid = parseInt(req.body.id, 10);
@@ -123,7 +118,7 @@ app.post("/collection", (req, res) => {
 });
 
 app.get("/collection", (req, res) => {
-  res.render("pages/collection", { items: collection, activeTab: "collection" });
+  res.render("pages/collection", {collection, activeTab: "collection" });
 });
 
 
