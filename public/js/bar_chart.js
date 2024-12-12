@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const barChartCanvas = document.getElementById("barChart");
     const barChartOptions = document.getElementById("barChartOptions");
 
-    const data = await fetchSkinsData(); // Fetch skins data dynamically
+    const data = await fetchSkinsData(); // Fetch skins data 
 
     const chartData = {
         weaponType: countByCategory(data, "weapon"),
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     barChartOptions.addEventListener("change", (event) => {
         const selectedOption = event.target.value;
-        currentBarChart.destroy(); // Destroy the old chart
+        currentBarChart.destroy(); 
         currentBarChart = createBarChart(barChartCanvas, chartData[selectedOption]);
     });
 

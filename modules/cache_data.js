@@ -5,7 +5,7 @@ async function fetchData() {
   try {
     const response = await axios.get("https://bymykel.github.io/CSGO-API/api/en/skins.json");
 
-    // Process and return all skins with necessary fields
+    
     cachedData = response.data.map(skin => ({
       weapon: skin.weapon.name,
       pattern: skin.pattern ? skin.pattern.name : "N/A",

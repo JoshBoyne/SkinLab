@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const pieChartCanvas = document.getElementById("pieChart");
   const pieChartOptions = document.getElementById("pieChartOptions");
 
-  const data = await fetchSkinsData(); // Fetch skins data dynamically
+  const data = await fetchSkinsData(); // Fetch skins data 
 
   const chartData = {
       weaponType: countByCategory(data, "weapon"),
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   pieChartOptions.addEventListener("change", (event) => {
       const selectedOption = event.target.value;
-      currentPieChart.destroy(); // Destroy the old chart
+      currentPieChart.destroy();
       currentPieChart = createPieChart(pieChartCanvas, chartData[selectedOption]);
   });
 
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return new Chart(canvas, {
         type: "pie",
         data: {
-            labels: Object.keys(data), // Keep labels for accessibility
+            labels: Object.keys(data), 
             datasets: [
                 {
                     data: Object.values(data),
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         options: {
             plugins: {
                 legend: {
-                    display: false, // Hide the legend
+                    display: false, 
                 },
             },
         },
