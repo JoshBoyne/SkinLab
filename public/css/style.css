@@ -1,7 +1,242 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
-/*HOME PAGE*/
-.home-body {
+/* HOME PAGE */
+body.home-body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #5C6784; 
+    color: #2E2E2E; 
+    margin: 0;
+    padding: 0;
+}
+
+/* Search Bar Styling */
+.home-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #FFD56B;
+    border-radius: 5px;
+    outline: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.search-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFD56B;
+    color: #2E2E2E;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.search-button:hover {
+    background-color: #FFCC00;
+}
+
+/* Main Container Styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+    padding: 20px;
+}
+
+.skin-carousel,
+.featured-skins,
+.chart-section {
+    width: 80%; 
+    background-color: #4C566A; 
+    border: 2px solid #FFD56B; 
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* General Text Styling */
+.skin-carousel h2,
+.featured-skins h2,
+.chart-section h2 {
+    color: #FFD56B; 
+}
+
+.skin-carousel p,
+.featured-skins p,
+.chart-section p {
+    color: #E5E5E5;
+}
+
+.skin-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%; 
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skin-carousel .carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.carousel-item {
+    flex: 0 0 calc(100% / 4); 
+    box-sizing: border-box; 
+    padding: 5px; 
+    text-align: center; 
+}
+
+.carousel-item img {
+    width: 100%; 
+    height: auto;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.carousel-item p {
+    margin-top: 5px; 
+    font-size: 14px; 
+    color: #4C566A;
+}
+
+/* Navigation Buttons */
+.carousel-button {
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10; 
+}
+
+.carousel-button.left-button {
+    left: 10px;
+}
+
+.carousel-button.right-button {
+    right: 10px; 
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8); 
+}
+
+.featured-skins {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 15px; 
+    padding: 20px;
+    justify-content: center;
+}
+
+
+.featured-item {
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 200px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.featured-item img {
+    width: auto;
+    height: 120px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+}
+
+.featured-item p {
+    margin-top: 5px;
+    font-size: 12px; 
+    color: white; 
+}
+
+.chart-section {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: space-between; /* Space out the charts */
+    align-items: flex-start; /* Align items at the top */
+    gap: 20px; /* Space between the charts */
+    flex-wrap: wrap; /* Ensure responsiveness for smaller screens */
+}
+
+.chart {
+    flex: 1; /* Make both charts take equal width */
+    max-width: 45%; /* Limit the maximum width of each chart */
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for contrast */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for better appearance */
+    text-align: center;
+}
+
+/* Ensure the canvas elements are the same size */
+canvas {
+    width: 100%; /* Full width of the container */
+    max-height: 260px; /* Set the same height for both charts */
+    height: auto; /* Allow the height to adjust dynamically */
+}
+
+.chart-select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* SKIN PAGE */
+.skin-body {
     font-family: 'Open Sans', sans-serif;
     background-color: #5C6784; 
     color: #2E2E2E;
@@ -9,33 +244,22 @@
     padding: 0;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px; 
-    padding: 20px;
+
+/*GAME PAGE*/
+.game-body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #5C6784; 
+    color: #2E2E2E;
+    margin: 0;
+    padding: 0;
 }
 
-.content-box {
-    width: 60%; 
-    background-color: #E5E5E5;
-    border: 2px solid #FFD56B; 
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    text-align: center;
-}
 
-.content-box h2 {
-    color: #3A506B; 
-}
-
-.content-box p {
-    color: #4C566A;
-}
-
-.home-search{
-    margin-left: 650px;
-    padding: 20px;
+/*COLLECTION PAGE*/
+.collection-body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #5C6784; 
+    color: #2E2E2E;
+    margin: 0;
+    padding: 0;
 }

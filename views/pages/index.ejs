@@ -1,28 +1,85 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="/css/style.css" />
-    </head>
-    <body class ="home-body">
-        <%- include('../partials/header', { activeTab: 'list' }) %>
-        <!-- Main Content Section -->
-        <div class="home-search">
-            <input type="text" placeholder="Search..." class="search-input" />
-            <button class="search-button">🔍</button>
+<head>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/pie_chart.js"></script>
+    <script src="/js/bar_chart.js"></script>
+</head>
+<body class="home-body">
+    <%- include('../partials/header', { activeTab: 'list' }) %>
+
+    <div class="home-search">
+        <input type="text" placeholder="Search..." class="search-input" />
+        <button class="search-button">🔍</button>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+
+        <div class="skin-carousel">
+            <h2>Skin Carousel</h2>
+            <button class="carousel-button left-button">⮜</button>
+            <div class="carousel">
+                <% if (carouselSkins && carouselSkins.length > 0) { %>
+                    <% carouselSkins.forEach((skin) => { %>
+                        <div class="carousel-item">
+                            <img src="<%= skin.image %>" alt="<%= skin.weapon %> - <%= skin.pattern %>" />
+                            <p><%= skin.weapon %> - <%= skin.pattern %></p>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No skins available to display.</p>
+                <% } %>
+            </div>
+            <button class="carousel-button right-button">⮞</button>
         </div>
 
-        <div class="container">
-            <div class="content-box">
-                <h2>Section 1</h2>
-                <p>This is the first content box.</p>
-            </div>
-            <div class="content-box">
-                <h2>Section 2</h2>
-                <p>This is the second content box.</p>
-            </div>
-            <div class="content-box">
-                <h2>Section 3</h2>
-                <p>This is the third content box.</p>
+
+        <div class="featured-skins">
+            <h2>Featured Skins</h2>
+            <div class="featured-grid">
+                <% if (featuredSkins && featuredSkins.length > 0) { %>
+                    <% featuredSkins.forEach((skin) => { %>
+                        <div class="featured-item">
+                            <img src="<%= skin.image %>" alt="<%= skin.weapon %> - <%= skin.pattern %>" />
+                            <p><%= skin.weapon %> - <%= skin.pattern %></p>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No featured skins available.</p>
+                <% } %>
             </div>
         </div>
-    </body>
+
+
+        <div class="chart-section">
+            <h2>Chart</h2>
+            <div class="chart-container">
+                <!-- Pie Chart -->
+                <div class="chart pie-chart">
+                    <h3>Pie Chart</h3>
+                    <select id="pieChartOptions" class="chart-select">
+                        <option value="weaponType">Skins by Weapon Type</option>
+                        <option value="rarity">Skins by Rarity</option>
+                    </select>
+                    <canvas id="pieChart"></canvas>
+                </div>
+        
+                <!-- Bar Graph -->
+                <div class="chart bar-chart">
+                    <h3>Bar Graph</h3>
+                    <select id="barChartOptions" class="chart-select">
+                        <option value="weaponType">Skins by Weapon Type</option>
+                        <option value="rarity">Skins by Rarity</option>
+                    </select>
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+
+
+    </div>
+</body>
 </html>

@@ -1,6 +1,5 @@
 const axios = require("axios");
 
-// Fetch the first 100 skins from the CS:GO API
 async function fetchData() {
   let cachedData = [];
   try {
@@ -13,12 +12,21 @@ async function fetchData() {
       pattern: skin.pattern ? skin.pattern.name : "N/A", // Safely access pattern name
       rarity: skin.rarity.name, // Rarity name
       image: skin.image
+      
+    // Process and return all skins with necessary fields
+  /*  cachedData = response.data.map(skin => ({
+      weapon: skin.weapon.name,
+      pattern: skin.pattern ? skin.pattern.name : "N/A",
+      rarity: skin.rarity.name,
+      image: skin.image || "",
+*/
     }));
   } catch (error) {
     console.error("Error fetching CS:GO skins:", error.message);
-    cachedData = []; // Reset cache on failure
+    cachedData = [];
   }
   return cachedData;
 }
 
 module.exports = fetchData;
+
