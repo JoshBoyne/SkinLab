@@ -8,7 +8,7 @@
 
 
         <% 
-          const uniqueWeapons = [...new Set(items.map(item => item.weapon))];
+          const uniqueWeapons = [...new Set(collection.map(item => item.weapon))];
         %>
 
         <div class="tab-content">
@@ -34,7 +34,7 @@
             
             <div class="weapons-container">
                 <ul>
-                    <% items.forEach(item => { %>
+                    <% collection.forEach(item => { %>
                       <li class="weapon-item" data-weapon-name="<%= item.weapon %>">
                         <img src="<%= item.image %>" alt="weapon image" class="weapon-image">
                         <div class="weapon-name"><%= item.weapon %></div>
