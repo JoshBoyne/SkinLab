@@ -1,0 +1,68 @@
+.weapons-container {
+    width: 960px;
+    border: 3px solid #000;
+    margin: 20px auto;
+    padding: 10px;
+  
+    /* Adjust the height to accommodate 3 rows of the grid plus grid gaps.
+       For example, if each weapon is approximately 200px in height, 
+       and you have some spacing, you might set something like 650px. 
+       Adjust as needed based on your actual item heights. */
+    max-height: 530px; 
+    overflow-y: auto;
+  }
+  
+  
+  .weapons-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  
+    /* Create a grid with 5 columns */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 4px;
+  }
+  
+  .weapons-container li {
+    border: 1px solid #ccc;
+    padding: 2px;
+    text-align: left;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+  .weapon-selector {
+    width: 1080px;
+    margin: 0 auto 10px auto;
+    text-align: left;
+  }
+  
+  .weapon-selector label {
+    margin-right: 10px;
+  }
+  
+  .weapons-container li .weapon-image {
+    max-width: 150px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .weapons-container li .weapon-name {
+    margin-top: 1px;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  
+  .weapons-container li .pattern-name {
+    margin-top: 1px;
+    font-size: 0.95em;
+    color: #555;
+  }
+  
+  .weapons-container li .actions {
+    margin-top: 10px;
+  }
+  
