@@ -1,68 +1,146 @@
+
+/* @Authour Sean Byrne - Student Number: 23343362 */
+/* STYLING FOR BOTH THE COLLECTION AND SKIN PAGES */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+
+/* Consistent Styling for both pages */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #5C6784;
+}
+
+.DisplayWeapons {
+  height: 750px;
+  margin-top: 50px;
+}
+
+.DisplayWeapons h3{
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+
 .weapons-container {
-    width: 960px;
-    border: 3px solid #000;
-    margin: 20px auto;
-    padding: 10px;
-  
-    /* Adjust the height to accommodate 3 rows of the grid plus grid gaps.
-       For example, if each weapon is approximately 200px in height, 
-       and you have some spacing, you might set something like 650px. 
-       Adjust as needed based on your actual item heights. */
-    max-height: 530px; 
-    overflow-y: auto;
-  }
-  
-  
-  .weapons-container ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  
-    /* Create a grid with 5 columns */
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-gap: 4px;
-  }
-  
-  .weapons-container li {
-    border: 1px solid #ccc;
-    padding: 2px;
-    text-align: left;
-  
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-  }
-  
-  .weapon-selector {
-    width: 1080px;
-    margin: 0 auto 10px auto;
-    text-align: left;
-  }
-  
-  .weapon-selector label {
-    margin-right: 10px;
-  }
-  
-  .weapons-container li .weapon-image {
-    max-width: 150px;
-    height: 100px;
-    object-fit: cover;
-  }
-  
-  .weapons-container li .weapon-name {
-    margin-top: 1px;
-    font-weight: bold;
-    font-size: 1.1em;
-  }
-  
-  .weapons-container li .pattern-name {
-    margin-top: 1px;
-    font-size: 0.95em;
-    color: #555;
-  }
-  
-  .weapons-container li .actions {
-    margin-top: 10px;
-  }
-  
+  background-color: #4C566A;
+  width: 960px;
+  border: 3px solid #FFD56B;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 15px;
+  font-family: 'Open Sans', sans-serif;
+  max-height: 558px; 
+  overflow-y: auto;
+}
+
+
+.weapons-container ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+}
+
+.weapons-container li {
+  color: white;
+  border: 1px solid #ccc;
+  padding: 2px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weapon-selector {
+  width: 1080px;
+  margin: -10px auto ;
+  text-align: center;
+}
+
+.weapon-selector label {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
+.weapons-container li .weapon-image {
+  max-width: 150px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.weapons-container li .weapon-name {
+  margin-top: 1px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.weapons-container li .pattern-name {
+  margin-top: 1px;
+  font-size: 12px;
+  color: #fcfcfc;
+}
+
+.weapons-container li {
+  margin-top: 10px;
+}
+
+/* Styling for the Add to collection button on the Skin Page */
+button {
+  border: none;
+  border-radius: 5px;
+  background-color: #2E2E2E;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover{
+  background-color: #0056b3;
+}
+
+/* Stylings for the Remove weapon button and edit button on the Collection Page */
+.actions button{
+  display: flex;
+  align-items: center;
+  margin-top:10px;
+}
+
+.actions a{
+  display: flex;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.actions a:hover{
+  color: #e6b800;
+}
+
+
+/* Styling for Refresh/Remove all button for the Collection */
+form input{
+  margin-left: 880px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2E2E2E;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size:20px;
+}
+
+form input:hover {
+  background-color: #0056b3;
+}
+
+

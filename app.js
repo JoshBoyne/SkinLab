@@ -6,11 +6,8 @@ const PORT = 3000;
 
 let items = [];
 const fs = require("fs");
-var myCSS = {
-  //headerStyle : fs.readFileSync('public/css/header.css', 'utf8')
-  collectionStyle : fs.readFileSync('public/css/catalogue.css', 'utf8')
-};
 
+//async function that automatically populates the items array with data from the fetchData function
 (async () => {
   items = await fetchData();
 })();
@@ -67,18 +64,19 @@ app.get("/api/skins", async (req, res) => {
 });
 
 /*  @Authour Sean Byrne - Student Number: 23343362
-    ---Skin Catalogue Section---
+    --- Skin Catalogue Section & Collection Section ---
     This section contains the a list of every weapon type with corresponding skin patterns.
     An image of every weapon with a skin pattern will have a button allowing the user to add to a collection (this would be the Add for the CRUD functionality).
     CRUD FUNCTIONALITY - within the collection, users can delete (remove weapon from collection) or update (change weapon from collection to another weapon).
 */
 app.get("/skin",(req, res) => {
-  res.render("pages/skin", {myCSS: myCSS, items: items, activeTab: "skin" });
+  res.render("pages/skin", {items: items, activeTab: "skin" });
 });
 
+//route handler for POST request from refreshData endpoint, removes all weapons from collection
 app.post("/refreshData", async (req, res) => {
  collection = []; 
- //console.log(items);
+ //console.log(collection);
   res.render('pages/skin', { items, activeTable: "skin"});
 });
 
@@ -90,33 +88,21 @@ app.get("/game", (req, res) => {
   res.render("pages/game", { activeTab: "game" });
 });
 
-//Collection Page
-let collection = []; // Store collected items
-// Skin Page
-app.get("/skin", async (req, res) => {
-  try {
-    const skins = await fetchData(); // Fetch skin data for the skin page
-    res.render("pages/skin", { activeTab: "skin", skins });
-  } catch (error) {
-    console.error("Error fetching skins for skin page:", error.message);
-    res.render("pages/skin", { activeTab: "skin", skins: [] });
-  }
-});
+let collection = []; // stores selected weapons from skin page within an array called collection
 
-// Use for adding skin to collection
-app.post("/skin", (req, res) => {
-  const { name, value } = req.body;
-});
-
+//route handler for collection POST endpoint
+// function adds selected weapons from the skin page to the collection page 
 app.post("/collection", (req, res) => {
-  const weaponid = parseInt(req.body.id, 10);
+  const weaponid = parseInt(req.body.id);
   const weapon = items.find(item => item.id === weaponid);
-  if (weapon && !collection.find(item => item.id === weaponid)) {
-    collection.push(weapon); // Add the weapon to the collection
+  if (weapon && !collection.find(item => item.id === weaponid)) { //if for preventing mulitple of the same weapon to be within the collection
+    collection.push(weapon); // adds selected weapon to the collection
+   // console.log(weapon)
   }
   res.redirect("/skin");
 });
 
+//route handler for getting GET requests from collection endpoint, renders collection page with selected weapons from skin page
 app.get("/collection", (req, res) => {
   res.render("pages/collection", {collection, activeTab: "collection" });
 });
@@ -124,22 +110,26 @@ app.get("/collection", (req, res) => {
 
 // Use for collection page
 app.get("/edit/:id", (req, res) => {
-  const item = items.find((item) => item.id === parseInt(req.params.id));
-  if (item) {
-    res.render("form", { item, activeTab: "collection" });
+  const weapon = collection.find((weapon) => weapon.id === parseInt(req.params.id));
+  if (weapon) {
+    res.render("pages/editWeapon", { weapon, activeTab: "collection" });
   } else {
     res.status(404).send("Item not found");
   }
 });
 
 // Use for collection page
-app.post("/update", (req, res) => {
-  const { id, name, value } = req.body;
-  const itemIndex = items.findIndex((item) => item.id === parseInt(id));
-  if (itemIndex !== -1) {
-    items[itemIndex] = { id: parseInt(id), name, value: parseInt(value) };
+app.post("/updateWeapon", (req, res) => {
+  const { id, weapon, pattern, image } = req.body;
+  const weaponIndex = collection.findIndex((item) => item.id === parseInt(id));
+  if (weaponIndex !== -1) {
+    collection[weaponIndex] = {
+      ...collection[weaponIndex],
+      weapon,
+      pattern
+    };
   }
-  res.redirect("/");
+  res.redirect("collection");
 });
 
 // Handle Deleting an Item

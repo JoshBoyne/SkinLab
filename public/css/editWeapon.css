@@ -1,0 +1,65 @@
+/*  
+--- Stylings for Edit Page ---
+@Authour Sean Byrne - Student Number: 23343362 
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #5C6784;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 760px;
+}
+
+.DisplayWeapon {
+    background-color: #4C566A;
+    border:3px solid #FFD56B;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center; 
+    width: 400px;
+  }
+  
+  form label {
+    margin-top:20px;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+ .textField{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    color: #333;
+ }
+  
+  form button {
+    background-color: #2E2E2E;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
