@@ -1,29 +1,34 @@
+/*
+@Authour Joshua Boyne - Student Number: 23343338
+    ---Pie chart js file---
+*/
+
 document.addEventListener("DOMContentLoaded", async () => {
     const pieChartCanvas = document.getElementById("pieChart");
     const pieChartOptions = document.getElementById("pieChartOptions");
 
-    const data = await fetchSkinsData(); // Fetch skins data dynamically
+    const data = await fetchSkinsData(); // fetches skin data
 
     const chartData = {
-        rarity: countByCategory(data, "rarity"), // Skins by Rarity
-        weaponType: countByCategory(data, "weapon"), // Skins by Weapon Type
-        case: countByCategory(data, "crate"), // Skins by Case
-        weaponRarity: countByWeaponRarity(data), // Skins by Weapon Rarity
+        rarity: countByCategory(data, "rarity"), // Skins by rarity
+        weaponType: countByCategory(data, "weapon"), // Skins by weapon type
+        case: countByCategory(data, "crate"), // Skins by case
+        weaponRarity: countByWeaponRarity(data), // Skins by weapon rarity
     };
 
     let currentPieChart = createPieChart(pieChartCanvas, chartData.rarity); // Default is "rarity"
 
     pieChartOptions.addEventListener("change", (event) => {
         const selectedOption = event.target.value;
-        currentPieChart.destroy(); // Destroy the old chart
+        currentPieChart.destroy(); // gets rid of old chart
         currentPieChart = createPieChart(pieChartCanvas, chartData[selectedOption]);
     });
 
-    function createPieChart(canvas, data) {
+    function createPieChart(canvas, data) {//creates chart with data from dropdown box
         return new Chart(canvas, {
             type: "pie",
             data: {
-                labels: Object.keys(data), // Labels are still required for data alignment
+                labels: Object.keys(data),
                 datasets: [
                     {
                         data: Object.values(data),
@@ -34,10 +39,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             options: {
                 plugins: {
                     legend: {
-                        display: false, // Completely hide the legend
+                        display: false, 
                     },
                     tooltip: {
-                        enabled: false, // Disable tooltips
+                        enabled: true, // Enable tooltips
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                const label = tooltipItem.label || "";
+                                const value = tooltipItem.raw || 0;
+                                return `${label}: ${value}`; 
+                            },
+                        },
                     },
                 },
             },

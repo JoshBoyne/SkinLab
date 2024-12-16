@@ -1,3 +1,5 @@
+/*@Author Joshua Boyne - Student Number: 23343338 */
+
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 /* HOME PAGE */
@@ -10,7 +12,7 @@ body.home-body {
 }
 
 
-/* Search Bar Styling */
+/* Search Bar  */
 .home-search {
     display: flex;
     justify-content: center;
@@ -42,7 +44,6 @@ body.home-body {
     background-color: #FFCC00;
 }
 
-/* Main Container Styling */
 .container {
     display: flex;
     flex-direction: column;
@@ -63,7 +64,6 @@ body.home-body {
     text-align: center;
 }
 
-/* General Text Styling */
 .skin-carousel h2,
 .featured-skins h2,
 .chart-section h2 {
@@ -110,7 +110,7 @@ body.home-body {
     color: #4C566A;
 }
 
-/* Navigation Buttons */
+/* Nav Buttons */
 .carousel-button {
     position: absolute;
     top: 50%; 
@@ -181,7 +181,7 @@ body.home-body {
 
 .chart-section {
     padding: 20px;
-    background-color: #3A506B; /* Steel Blue */
+    background-color: #3A506B; 
     border-radius: 10px;
     color: white;
     text-align: center;
@@ -465,7 +465,7 @@ body.game-body {
 
 .trade-up-section {
     padding: 20px;
-    background-color: #3A506B; /* Steel Blue */
+    background-color: #3A506B; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: white;
@@ -487,15 +487,15 @@ body.game-body {
     font-size: 16px;
     border: 1px solid #FFD56B;
     border-radius: 5px;
-    background-color: #5C6784; /* Light Navy Blue */
+    background-color: #5C6784; 
     color: white;
 }
 
 .trade-up-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #FFCC00; /* Bright Yellow */
-    color: #2E2E2E; /* Dark Gray */
+    background-color: #FFCC00;
+    color: #2E2E2E; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -511,7 +511,7 @@ body.game-body {
 .trade-up-result {
     margin-top: 20px;
     text-align: center;
-    color: #FFD56B; /* Bright Yellow */
+    color: #FFD56B; 
 }
 .trade-up-actions {
     display: flex;
@@ -523,7 +523,7 @@ body.game-body {
 .clear-all-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4C566A; /* Slate Blue */
+    background-color: #4C566A;
     color: white;
     border: none;
     border-radius: 5px;
@@ -532,12 +532,12 @@ body.game-body {
 }
 
 .clear-all-button:hover {
-    background-color: #6C757D; /* Slightly brighter */
+    background-color: #6C757D;
     transform: scale(1.05);
 }
 
 .trade-up-result img {
-    width: 150px; /* Smaller width for the reward skin */
+    width: 150px; 
     height: auto;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

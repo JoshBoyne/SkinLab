@@ -3,7 +3,7 @@ const axios = require("axios");
 async function fetchData() {
   let cachedData = [];
   try {
-    const response = await axios.get("https://bymykel.github.io/CSGO-API/api/en/skins.json");
+    const response = await axios.get("https://bymykel.github.io/CSGO-API/api/en/skins.json");//api key
 
 
     

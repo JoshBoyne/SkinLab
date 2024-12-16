@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const caseDropdown = document.getElementById("caseDropdown");
     const skinsDisplay = document.getElementById("skinsDisplay");
 
-    // Fetch cases and skins data
+    // fetches cases and skins data
     const data = await fetchCratesData();
 
-    // Populate the dropdown with crate names
+    // populates the dropdown with crate names
     Object.keys(data).forEach((crateName) => {
         const option = document.createElement("option");
         option.value = crateName;
@@ -13,15 +13,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         caseDropdown.appendChild(option);
     });
 
-    // Handle crate selection
+    
     caseDropdown.addEventListener("change", (event) => {
         const selectedCase = event.target.value;
         const skins = data[selectedCase];
 
-        // Clear previous skins
+        // clear previous skins
         skinsDisplay.innerHTML = "";
 
-        // Display skins in rows of 6
+        // displays skins in rows of 6
         skins.forEach((skin) => {
             const skinElement = document.createElement("div");
             skinElement.classList.add("skin-item");
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    // Function to fetch crates data
+    // function to fetch crates data
     async function fetchCratesData() {
         const response = await fetch("/api/crates");
         return await response.json();
@@ -44,13 +44,13 @@ caseDropdown.addEventListener("change", (event) => {
     const selectedCase = event.target.value;
     const skins = data[selectedCase];
 
-    // Clear previous skins
+    // clear previous skins
     skinsDisplay.innerHTML = "";
 
-    // Reset scroll position
+    
     skinsDisplay.scrollTop = 0;
 
-    // Display skins in rows of 6
+    // displays skins in rows of 6
     skins.forEach((skin) => {
         const skinElement = document.createElement("div");
         skinElement.classList.add("skin-item");
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const randomSkinContainer = document.getElementById("randomSkinContainer");
     const skinsDisplay = document.getElementById("skinsDisplay");
 
-    // Odds for different rarities 
+    // odds for different rarities 
     const rarityOdds = {
         "Consumer Grade": 79.92, // 79.92% chance
         "Industrial Grade": 15.98, // 15.98% chance
@@ -82,10 +82,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         "Knife": 0.02, // 0.02% chance (extremely rare)
     };
 
-    // Fetch cases and skins data
+    // fetch cases and skins data
     const data = await fetchCratesData();
 
-    // Populate the dropdown with crate names
+    // populate the dropdown with crate names
     Object.keys(data).forEach((crateName) => {
         const option = document.createElement("option");
         option.value = crateName;
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         caseDropdown.appendChild(option);
     });
 
-    // Show preview and open buttons only when a case is selected
+    // show preview and open buttons only when a case is selected
     caseDropdown.addEventListener("change", () => {
         const selectedCase = caseDropdown.value;
 
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // Handle "Confirm" button click
+    // handle "Confirm" button click
     confirmButton.addEventListener("click", () => {
         const selectedCase = caseDropdown.value;
 
@@ -115,10 +115,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // Get the crate image
+        // get the crate image
         const crateImage = data[selectedCase]?.image;
 
-        // Display crate image
+        // display crate image
         if (crateImage) {
             crateImageContainer.innerHTML = `
                 <img src="${crateImage}" alt="${selectedCase}" />
@@ -128,11 +128,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             crateImageContainer.innerHTML = `<p>Image not available for ${selectedCase}</p>`;
         }
 
-        // Clear the random skin container
+        // clear the random skin container
         randomSkinContainer.innerHTML = "";
     });
 
-    // Handle "Preview" button click
+    // handle "Preview" button click
     previewButton.addEventListener("click", () => {
         const selectedCase = caseDropdown.value;
 
@@ -143,10 +143,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const skins = data[selectedCase]?.skins;
 
-        // Clear previous skins
+        // clear previous skins
         skinsDisplay.innerHTML = "";
 
-        // Display all skins in the crate
+        // display all skins in the crate
         skins.forEach((skin) => {
             const skinElement = document.createElement("div");
             skinElement.classList.add("skin-item");
@@ -157,11 +157,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             skinsDisplay.appendChild(skinElement);
         });
 
-        // Clear the random skin container
+        // clear the random skin container
         randomSkinContainer.innerHTML = "";
     });
 
-    // Handle "Open" button click
+    // handle "Open" button click
     openButton.addEventListener("click", async () => {
         const selectedCase = caseDropdown.value;
     
@@ -177,14 +177,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
     
-        // Select a random skin based on rarity odds
+        // select a random skin based on rarity odds
         const randomSkin = getRandomSkinByOdds(skins);
     
-        // Clear the crate image and skins grid
+        // clear the crate image and skins grid
         crateImageContainer.innerHTML = "";
         skinsDisplay.innerHTML = "";
     
-        // Display the random skin
+        // display the random skin
         randomSkinContainer.innerHTML = `
             <img src="${randomSkin.image}" alt="${randomSkin.weapon} - ${randomSkin.pattern}" />
             <p>${randomSkin.weapon} - ${randomSkin.pattern} (${randomSkin.rarity})</p>

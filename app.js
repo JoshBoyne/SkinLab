@@ -18,7 +18,8 @@ var myCSS = {
   items = await fetchData();
 })();
 
-
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
 app.get("/api/crates", async (req, res) => {
   try {
     const crates = await fetchCrates();
@@ -37,6 +38,8 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
 // Home Page
 app.get("/", async (req, res) => {
   try {
@@ -59,6 +62,8 @@ app.get("/", async (req, res) => {
   }
 });
 
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
 function getUniqueWeaponSkins(skins) {
   const uniqueSkins = {};
   skins.forEach((skin) => {
@@ -69,7 +74,8 @@ function getUniqueWeaponSkins(skins) {
   return Object.values(uniqueSkins); 
 }
 
-
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
 app.get("/api/skins", async (req, res) => {
   try {
     const skins = await fetchData();
@@ -79,6 +85,64 @@ app.get("/api/skins", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch skins data" });
   }
 });
+
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+// Game Page
+app.get("/game", (req, res) => {
+  res.render("pages/game", { activeTab: "game" });
+});
+app.get("/api/collection", (req, res) => {
+  res.json(collection);
+});
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+app.post("/api/tradeUp", (req, res) => {
+  const { skins } = req.body;
+
+  if (!skins || skins.length !== 6) {
+      return res.status(400).send("You must trade exactly 6 skins.");
+  }
+
+  // removes the selecte skins from the collection
+  skins.forEach((skin) => {
+      const index = collection.findIndex((item) => item.id === skin.id);
+      if (index > -1) {
+          collection.splice(index, 1);
+      }
+  });
+
+  // Generate a random rare skin for the trade-up
+  const rarityLevels = ["Restricted", "Classified", "Covert", "Knife"];
+  const randomRarity = rarityLevels[Math.floor(Math.random() * rarityLevels.length)];
+  const availableSkins = items.filter((item) => item.rarity === randomRarity);
+  const randomSkin = availableSkins[Math.floor(Math.random() * availableSkins.length)];
+
+  // Add the new skin to the collection
+  collection.push(randomSkin);
+
+  // Return the new skin to the frontend
+  res.json(randomSkin);
+});
+
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+// Chart Page
+app.get("/chart", (req, res) => {
+  res.render("chart", { activeTab: "chart" });
+});
+
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+//  Provide chart data
+app.get("/api/chart-data", (req, res) => {
+  const labels = items.map((item) => item.name);
+  const values = items.map((item) => item.value);
+  res.json({ labels, values });
+});
+
+
+
 
 /*  @Authour Sean Byrne - Student Number: 23343362
     ---Skin Catalogue Section---
@@ -99,40 +163,8 @@ app.post("/refreshData", async (req, res) => {
 
 
 
-// Game Page
-app.get("/game", (req, res) => {
-  res.render("pages/game", { activeTab: "game" });
-});
-app.get("/api/collection", (req, res) => {
-  res.json(collection);
-});
-app.post("/api/tradeUp", (req, res) => {
-  const { skins } = req.body;
 
-  if (!skins || skins.length !== 6) {
-      return res.status(400).send("You must trade exactly 6 skins.");
-  }
 
-  // Remove the selected skins from the collection
-  skins.forEach((skin) => {
-      const index = collection.findIndex((item) => item.id === skin.id);
-      if (index > -1) {
-          collection.splice(index, 1);
-      }
-  });
-
-  // Generate a random rare skin for the trade-up
-  const rarityLevels = ["Restricted", "Classified", "Covert", "Knife"];
-  const randomRarity = rarityLevels[Math.floor(Math.random() * rarityLevels.length)];
-  const availableSkins = items.filter((item) => item.rarity === randomRarity);
-  const randomSkin = availableSkins[Math.floor(Math.random() * availableSkins.length)];
-
-  // Add the new skin to the collection
-  collection.push(randomSkin);
-
-  // Return the new skin to the frontend
-  res.json(randomSkin);
-});
 
 //Collection Page
 let collection = []; 
@@ -207,17 +239,8 @@ app.post("/delete", (req, res) => {
   res.redirect("collection");
 });
 
-// Chart Page
-app.get("/chart", (req, res) => {
-  res.render("chart", { activeTab: "chart" });
-});
 
-//  Provide chart data
-app.get("/api/chart-data", (req, res) => {
-  const labels = items.map((item) => item.name);
-  const values = items.map((item) => item.value);
-  res.json({ labels, values });
-});
+
 
 // Start the server
 app.listen(PORT, () => {
