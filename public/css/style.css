@@ -180,9 +180,12 @@ body.home-body {
 }
 
 .chart-section {
-    margin-top: 30px;
-    text-align: center;
     padding: 20px;
+    background-color: #3A506B; /* Steel Blue */
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
 }
 
 .chart-container {
@@ -197,7 +200,7 @@ body.home-body {
     flex: 1;
     max-width: 45%;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #5C6784;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
@@ -457,5 +460,86 @@ body.game-body {
 .random-skin-container p {
     font-size: 18px;
     color: #FFD56B;
+    margin-top: 10px;
+}
+
+.trade-up-section {
+    padding: 20px;
+    background-color: #3A506B; /* Steel Blue */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.trade-up-selectors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.trade-up-combo {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #FFD56B;
+    border-radius: 5px;
+    background-color: #5C6784; /* Light Navy Blue */
+    color: white;
+}
+
+.trade-up-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #FFCC00; /* Bright Yellow */
+    color: #2E2E2E; /* Dark Gray */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 20px;
+}
+
+.trade-up-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+}
+
+.trade-up-result {
+    margin-top: 20px;
+    text-align: center;
+    color: #FFD56B; /* Bright Yellow */
+}
+.trade-up-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.clear-all-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4C566A; /* Slate Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.clear-all-button:hover {
+    background-color: #6C757D; /* Slightly brighter */
+    transform: scale(1.05);
+}
+
+.trade-up-result img {
+    width: 150px; /* Smaller width for the reward skin */
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 10px;
 }

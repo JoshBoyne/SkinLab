@@ -2,18 +2,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const barChartCanvas = document.getElementById("barChart");
     const barChartOptions = document.getElementById("barChartOptions");
 
-    const data = await fetchSkinsData(); // Fetch skins data 
+    const data = await fetchSkinsData(); // Fetch skins data dynamically
 
     const chartData = {
-        weaponType: countByCategory(data, "weapon"),
-        rarity: countByCategory(data, "rarity"),
+        rarity: countByCategory(data, "rarity"), // Skins by Rarity
+        weaponType: countByCategory(data, "weapon"), // Skins by Weapon Type
+        case: countByCategory(data, "crate"), // Skins by Case
+        weaponRarity: countByWeaponRarity(data), // Skins by Weapon Rarity
     };
 
-    let currentBarChart = createBarChart(barChartCanvas, chartData.weaponType);
+    let currentBarChart = createBarChart(barChartCanvas, chartData.rarity); // Default is "rarity"
 
     barChartOptions.addEventListener("change", (event) => {
         const selectedOption = event.target.value;
-        currentBarChart.destroy(); 
+        currentBarChart.destroy(); // Destroy the old chart
         currentBarChart = createBarChart(barChartCanvas, chartData[selectedOption]);
     });
 
@@ -34,8 +36,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             },
             options: {
                 scales: {
+                    x: {
+                        ticks: { color: "white" },
+                        grid: { color: "rgba(255, 255, 255, 0.2)" },
+                    },
                     y: {
                         beginAtZero: true,
+                        ticks: { color: "white" },
+                        grid: { color: "rgba(255, 255, 255, 0.2)" },
+                    },
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: "white" },
                     },
                 },
             },
@@ -53,4 +66,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             return acc;
         }, {});
     }
-});
+
+    function countByWeaponRarity(skins) {
+        return skins.reduce((acc, skin) => {
+            const weaponRarityKey = `${skin.weapon} (${skin.rarity})`;
+            acc[weaponRarityKey] = (acc[weaponRarityKey] || 0) + 1;
+            return acc;
+        }, {});
+    }
+}); 

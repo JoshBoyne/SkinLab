@@ -103,6 +103,36 @@ app.post("/refreshData", async (req, res) => {
 app.get("/game", (req, res) => {
   res.render("pages/game", { activeTab: "game" });
 });
+app.get("/api/collection", (req, res) => {
+  res.json(collection);
+});
+app.post("/api/tradeUp", (req, res) => {
+  const { skins } = req.body;
+
+  if (!skins || skins.length !== 6) {
+      return res.status(400).send("You must trade exactly 6 skins.");
+  }
+
+  // Remove the selected skins from the collection
+  skins.forEach((skin) => {
+      const index = collection.findIndex((item) => item.id === skin.id);
+      if (index > -1) {
+          collection.splice(index, 1);
+      }
+  });
+
+  // Generate a random rare skin for the trade-up
+  const rarityLevels = ["Restricted", "Classified", "Covert", "Knife"];
+  const randomRarity = rarityLevels[Math.floor(Math.random() * rarityLevels.length)];
+  const availableSkins = items.filter((item) => item.rarity === randomRarity);
+  const randomSkin = availableSkins[Math.floor(Math.random() * availableSkins.length)];
+
+  // Add the new skin to the collection
+  collection.push(randomSkin);
+
+  // Return the new skin to the frontend
+  res.json(randomSkin);
+});
 
 //Collection Page
 let collection = []; 

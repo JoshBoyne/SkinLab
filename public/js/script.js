@@ -19,3 +19,5 @@ document.addEventListener("DOMContentLoaded", () => {
     
     setInterval(showNextItems, 3000); // Slide every 3 seconds
 });
+
+

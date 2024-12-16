@@ -37,12 +37,43 @@
                 </div>
     
                 <!-- Trade-Up Simulator -->
-                <div class="game-section trade-up">
+                <div class="game-section trade-up-section">
                     <h2>Trade-Up Simulator</h2>
-                    <p>Combine skins to trade up for a higher-tier skin.</p>
-                    <button class="game-button" id="tradeUpSimulator">Play Trade-Up Simulator</button>
+                    <p>Select 6 skins from your collection to trade up for a rare skin.</p>
+                
+                    <!-- Combo Boxes for Skin Selection -->
+                    <div id="tradeUpSelectors" class="trade-up-selectors">
+                        <select class="trade-up-combo" data-index="0">
+                            <option value="" disabled selected>Select Skin 1</option>
+                        </select>
+                        <select class="trade-up-combo" data-index="1">
+                            <option value="" disabled selected>Select Skin 2</option>
+                        </select>
+                        <select class="trade-up-combo" data-index="2">
+                            <option value="" disabled selected>Select Skin 3</option>
+                        </select>
+                        <select class="trade-up-combo" data-index="3">
+                            <option value="" disabled selected>Select Skin 4</option>
+                        </select>
+                        <select class="trade-up-combo" data-index="4">
+                            <option value="" disabled selected>Select Skin 5</option>
+                        </select>
+                        <select class="trade-up-combo" data-index="5">
+                            <option value="" disabled selected>Select Skin 6</option>
+                        </select>
+                    </div>
+                
+                    <!-- Action Buttons -->
+                    <div class="trade-up-actions">
+                        <button id="clearAllButton" class="clear-all-button">Clear All</button>
+                        <button id="tradeUpButton" class="trade-up-button" disabled>Trade-Up</button>
+                    </div>
+                
+                    <!-- Display for the new skin -->
+                    <div id="tradeUpResult" class="trade-up-result">
+                        <!-- New skin from trade-up will be displayed here -->
+                    </div>
                 </div>
-            </div>
         </div>
     
         <script src="/js/case_simulator.js"></script>

@@ -9,7 +9,7 @@ async function fetchData() {
     
  
 
-    // Transform the response to include only the first 100 skins
+    // include only the first 100 skins
     cachedData = response.data.slice(0,1808).map((skin, index) => ({
       id: index + 1, // Assign a new ID
       weapon: skin.weapon.name, // Weapon name
