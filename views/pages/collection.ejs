@@ -8,6 +8,8 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
 
 <html>
     <head>
+      <title>SkinLab</title>
+    <link rel="icon" sizes="180x180" href="/img/SkinLogo.webp">
         <link rel="stylesheet" href="/css/catalogue.css">
         <link rel="stylesheet" href="/css/footer.css" />
     </head>
@@ -26,6 +28,7 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
         <div class="DisplayWeapons">
             <h3>Your Collection</h3>
             
+
             <!-- dropdown box for selecting different weapon names within the collection -->
             <div class="weapon-selector">
                 <label for="weaponSelect">Select a Weapon:</label>
@@ -39,6 +42,9 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
                   <% } %>
                     <!-- arrow function for displaying all the weapon names of weapons only within the collection page -->
                     <% weaponNames.forEach(weapon => { %>
+
+
+
                       <option value="<%= weapon %>"><%= weapon %></option>
                     <% }) %>
                 </select>
@@ -52,7 +58,11 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
                         <div class="weapon-name"><%= item.weapon %></div>
                         <div class="pattern-name"><%= item.pattern %></div>
                         <div class="actions">
+
                           <!-- button for deleting/removing a weapon from the collection -->
+
+                         
+
                           <form action="/delete" method="POST" style="display: inline;">
                             <input type="hidden" name="id" value="<%= item.id %>">
                             <button type="submit">Remove Weapon</button>
@@ -79,18 +89,19 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
             weaponItems.forEach(item => {
               const itemWeapon = item.getAttribute('data-weapon-name');
               if (selectedWeapon === "all" || itemWeapon === selectedWeapon) {
-                item.style.display = 'flex'; // Show item
+                item.style.display = 'flex'; 
               } else {
-                item.style.display = 'none'; // Hide item
+                item.style.display = 'none'; 
               }
             });
           }
 
+
           // Listen to changes on the dropdown
           weaponSelect.addEventListener('change', filterWeapons);
 
-          // Filter on page load to show all weapons by default
-         // document.addEventListener('DOMContentLoaded', filterWeapons);
+         
+
         </script>
     </body>
 </html>

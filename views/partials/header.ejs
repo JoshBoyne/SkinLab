@@ -1,16 +1,29 @@
+<!--@Authour Joshua Boyne - Student Number: 23343338
+    ---Header---
+    This is the header section that is used across all pages. 
+    -->
+
 <header>
     <div class="logo">SkinLab</div>
 <nav class = "navbar">
     <ul class="tabs">
         <li><a href="/" class="<%= activeTab === 'home' ? 'active' : '' %>">Home</a></li>
-        <li><a href="/collection" class="<%= activeTab === 'collection' ? 'active' : '' %>">My Collection</a></li>
         <li><a href="/game" class="<%= activeTab === 'game' ? 'active' : '' %>">Game</a></li>
         <li><a href="/skin" class="<%= activeTab === 'skin' ? 'active' : '' %>">Skin Catalogue</a></li>
+        <li><a href="/collection" class="<%= activeTab === 'collection' ? 'active' : '' %>">My Collection</a></li>
+        
     </ul>
 </nav>
 <div class="search-container">
-    <input type="text" placeholder="Search..." class="navsearch-input" />
-    <button class="search-button">🔍</button>
+    <form id="searchForm" onsubmit="return handleSearch(event)">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search..."
+            class="navsearch-input"
+        />
+        <button type="submit" class="search-button">🔍</button>
+    </form>
 </div>
 
 <style>
@@ -39,7 +52,8 @@
     .navbar {
         display: flex;
         justify-content: center;
-        align-items: center; /* Align items vertically */
+        align-items: center;
+        margin-left: 100px;
     }
 
     .tabs {
@@ -50,7 +64,7 @@
     }
 
     .tabs li {
-        margin: 0 10px; /* Adjust spacing between tabs */
+        margin: 0 10px;
     }
 
     .tabs a {
@@ -65,22 +79,24 @@
     .tabs a.active,
     .tabs a:hover {
         background-color: #575757;
-        color: #FCA311; /* Text color on highlight */
+        color: #FCA311;
     }
 
     .search-container {
         display: flex;
-            align-items: center;
-            height: 100%;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px; 
+        height: auto; 
     }
 
     .navsearch-input {
-        width: 300px;
+        width: 200px;
         border: 1px solid #FFD56B;
         border-radius: 5px;
         outline: none;
         font-family: 'Open Sans', sans-serif;
-        padding: 6px; /* Adjust padding without affecting height */
+        padding: 6px;
         box-sizing: border-box;
     }
 
@@ -104,3 +120,28 @@
     
 </style>
 </header>
+<script>
+    function handleSearch(event) {
+        event.preventDefault();
+
+        const searchInput = document.getElementById("searchInput").value.toLowerCase();
+
+        // page keywords used for search
+        const pages = {
+            home: "/",
+            game: "/game",
+            "skin catalogue": "/skin",
+            "my collection": "/collection",
+        };
+
+        const pageKey = Object.keys(pages).find((key) =>
+            key.includes(searchInput)
+        );
+
+        if (pageKey) {
+            window.location.href = pages[pageKey]; //goes to matching page
+        } else {
+            alert("Page not found. Try searching 'Home', 'Game', 'Skin Catalogue', or 'My Collection'.");
+        }
+    }
+</script>

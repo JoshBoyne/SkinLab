@@ -3,56 +3,76 @@ const bodyParser = require("body-parser");
 const fetchData = require("./modules/cache_data.js");
 const app = express();
 const PORT = 3000;
+const fetchCrates = require("./modules/fetchCrates");
+
 
 let items = [];
 const fs = require("fs");
+
 
 //async function that automatically populates the items array with data from the fetchData function
 (async () => {
   items = await fetchData();
 })();
 
-
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+app.get("/api/crates", async (req, res) => {
+  try {
+    const crates = await fetchCrates();
+    res.json(crates);
+  } catch (error) {
+    console.error("Error fetching crates for API:", error.message);
+    res.status(500).json({ error: "Failed to fetch crates data" });
+  }
+});
 
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: true })); // Parse form data
-app.use(express.static("public")); // Serve static files
-app.set("view engine", "ejs"); // Set EJS as the view engine
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
+app.use(express.static("public"));
+app.set("view engine", "ejs");
 
+
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
 // Home Page
 app.get("/", async (req, res) => {
   try {
-    const skins = await fetchData(); // Fetch all skins
-    const uniqueWeaponSkins = getUniqueWeaponSkins(skins); // Get one skin per weapon type
+    const skins = await fetchData(); 
+    const uniqueWeaponSkins = getUniqueWeaponSkins(skins); 
 
-    // Render the homepage and pass data to the view
+    
     res.render("pages/index", {
       activeTab: "home",
-      carouselSkins: uniqueWeaponSkins, // Pass this to the carousel
-      featuredSkins: uniqueWeaponSkins.slice(0, 20), // Take the first 20 skins for the featured section
+      carouselSkins: uniqueWeaponSkins, 
+      featuredSkins: uniqueWeaponSkins.slice(0, 20), 
     });
   } catch (error) {
     console.error("Error in home route:", error.message);
     res.render("pages/index", {
       activeTab: "home",
-      carouselSkins: [], // Default empty data to avoid errors
-      featuredSkins: [], // Default empty data
+      carouselSkins: [], 
+      featuredSkins: [], 
     });
   }
 });
 
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
 function getUniqueWeaponSkins(skins) {
   const uniqueSkins = {};
   skins.forEach((skin) => {
     if (!uniqueSkins[skin.weapon]) {
-      uniqueSkins[skin.weapon] = skin; // Add first occurrence of each weapon type
+      uniqueSkins[skin.weapon] = skin; 
     }
   });
-  return Object.values(uniqueSkins); // Return as an array
+  return Object.values(uniqueSkins); 
 }
 
-// API endpoint for chart data
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
 app.get("/api/skins", async (req, res) => {
   try {
     const skins = await fetchData();
@@ -62,6 +82,78 @@ app.get("/api/skins", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch skins data" });
   }
 });
+
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+// Game Page
+app.get("/game", (req, res) => {
+  res.render("pages/game", { activeTab: "game" });
+});
+app.get("/api/collection", (req, res) => {
+  res.json(collection);
+});
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+app.post("/api/tradeUp", (req, res) => {
+  const { skins } = req.body;
+
+  if (!skins || skins.length !== 6) {
+      return res.status(400).send("You must trade exactly 6 skins.");
+  }
+
+  // removes the selecte skins from the collection
+  skins.forEach((skin) => {
+      const index = collection.findIndex((item) => item.id === skin.id);
+      if (index > -1) {
+          collection.splice(index, 1);
+      }
+  });
+
+  // Generate a random rare skin for the trade-up
+  const rarityLevels = ["Restricted", "Classified", "Covert", "Knife"];
+  const randomRarity = rarityLevels[Math.floor(Math.random() * rarityLevels.length)];
+  const availableSkins = items.filter((item) => item.rarity === randomRarity);
+  const randomSkin = availableSkins[Math.floor(Math.random() * availableSkins.length)];
+
+  // Add the new skin to the collection
+  collection.push(randomSkin);
+
+  // Return the new skin to the frontend
+  res.json(randomSkin);
+});
+
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+// Chart Page
+app.get("/chart", (req, res) => {
+  res.render("chart", { activeTab: "chart" });
+});
+
+/*@Authour Joshua Boyne - Student Number: 23343338 
+*/
+//  Provide chart data
+app.get("/api/chart-data", (req, res) => {
+  const labels = items.map((item) => item.name);
+  const values = items.map((item) => item.value);
+  res.json({ labels, values });
+});
+
+app.post("/addToCollection", (req, res) => {
+  console.log("Received skin:", req.body.skin); 
+  const { skin } = req.body;
+
+  if (!skin || collection.find((item) => item.id === skin.id)) {
+      console.log("Invalid skin or already in collection.");
+      return res.status(400).send("Invalid skin or already in collection.");
+  }
+
+  collection.push(skin);
+  console.log("Skin added to collection:", skin); 
+  res.sendStatus(200); 
+});
+
+
+
 
 /*  @Authour Sean Byrne - Student Number: 23343362
     --- Skin Catalogue Section & Collection Section ---
@@ -83,12 +175,34 @@ app.post("/refreshData", async (req, res) => {
 
 
 
-// Game Page
-app.get("/game", (req, res) => {
-  res.render("pages/game", { activeTab: "game" });
-});
+
+
+
 
 let collection = []; // stores selected weapons from skin page within an array called collection
+
+
+
+// Skin Page
+/* Keep until we dont need it
+app.get("/skin", async (req, res) => {
+  try {
+    const skins = await fetchData();
+    res.render("pages/skin", { activeTab: "skin", skins });
+  } catch (error) {
+    console.error("Error fetching skins for skin page:", error.message);
+    res.render("pages/skin", { activeTab: "skin", skins: [] });
+  }
+});
+*/
+
+
+// Use for adding skin to collection
+/*
+app.post("/skin", (req, res) => {
+  const { name, value } = req.body;
+});
+*/
 
 //route handler for collection POST endpoint
 // function adds selected weapons from the skin page to the collection page 
@@ -139,17 +253,8 @@ app.post("/delete", (req, res) => {
   res.redirect("collection");
 });
 
-// Chart Page
-app.get("/chart", (req, res) => {
-  res.render("chart", { activeTab: "chart" });
-});
 
-// API Endpoint: Provide chart data
-app.get("/api/chart-data", (req, res) => {
-  const labels = items.map((item) => item.name);
-  const values = items.map((item) => item.value);
-  res.json({ labels, values });
-});
+
 
 // Start the server
 app.listen(PORT, () => {
