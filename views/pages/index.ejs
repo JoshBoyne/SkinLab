@@ -1,3 +1,9 @@
+<!--@Authour Joshua Boyne - Student Number: 23343338
+    ---Home Page---
+    This is the home page for the SkinLab website. It displays a carousel of selected skins and a section of featured skins. It also displays 
+    a pie/bar chart that shows the statistics of the skins; Skins by Rarity, Skins by Weapon Type, Skins by Case and Skins by Weapon Rarity
+    -->
+
 <html>
 <head>
     <title>SkinLab</title>
@@ -13,17 +19,13 @@
 <body class="home-body">
     <%- include('../partials/header', { activeTab: 'list' }) %>
 
-    <div class="home-search">
-        <input type="text" placeholder="Search..." class="search-input" />
-        <button class="search-button">🔍</button>
-    </div>
+    
 
     <!-- Main Content Section -->
     <div class="container">
 
         <div class="skin-carousel">
             <h2>Skin Carousel</h2>
-            <button class="carousel-button left-button">⮜</button>
             <div class="carousel">
                 <% if (carouselSkins && carouselSkins.length > 0) { %>
                     <% carouselSkins.forEach((skin) => { %>
@@ -36,7 +38,6 @@
                     <p>No skins available to display.</p>
                 <% } %>
             </div>
-            <button class="carousel-button right-button">⮞</button>
         </div>
 
 
@@ -64,8 +65,10 @@
                 <div class="chart pie-chart">
                     <h3>Pie Chart</h3>
                     <select id="pieChartOptions" class="chart-select">
+                        <option value="rarity" selected>Skins by Rarity</option>
                         <option value="weaponType">Skins by Weapon Type</option>
-                        <option value="rarity">Skins by Rarity</option>
+                        <option value="case">Skins by Case</option>
+                        <option value="weaponRarity">Skins by Weapon Rarity</option>
                     </select>
                     <canvas id="pieChart"></canvas>
                 </div>
@@ -74,8 +77,10 @@
                 <div class="chart bar-chart">
                     <h3>Bar Graph</h3>
                     <select id="barChartOptions" class="chart-select">
+                        <option value="rarity" selected>Skins by Rarity</option>
                         <option value="weaponType">Skins by Weapon Type</option>
-                        <option value="rarity">Skins by Rarity</option>
+                        <option value="case">Skins by Case</option>
+                        <option value="weaponRarity">Skins by Weapon Rarity</option>
                     </select>
                     <canvas id="barChart"></canvas>
                 </div>

@@ -1,5 +1,7 @@
 <html>
     <head>
+      <title>SkinLab</title>
+    <link rel="icon" sizes="180x180" href="/img/SkinLogo.webp">
         <link rel="stylesheet" href="/css/catalogue.css">
     </head>
     <body>
@@ -21,11 +23,10 @@
         <div class="DisplayWeapons">
             <h3>Weapons in Your Collection</h3>
             
-            <!-- Dropdown to select weapon -->
             <div class="weapon-selector">
                 <label for="weaponSelect">Select a Weapon:</label>
                 <select id="weaponSelect">
-                    <option value="all" selected>All</option> <!-- "All" option as default -->
+                    <option value="all" selected>All</option> 
                     <% uniqueWeapons.forEach(weapon => { %>
                       <option value="<%= weapon %>"><%= weapon %></option>
                     <% }) %>
@@ -41,7 +42,7 @@
                         <div class="pattern-name"><%= item.pattern %></div>
                         <div class="rarity-name"><%= item.rarity %></div>
                         <div class="actions">
-                          <!-- Add buttons or actions here for managing collection items -->
+                         
                           <form action="/delete" method="POST" style="display: inline;">
                             <input type="hidden" name="id" value="<%= item.id %>">
                             <button type="submit">Remove Weapon</button>
@@ -63,17 +64,17 @@
             weaponItems.forEach(item => {
               const itemWeapon = item.getAttribute('data-weapon-name');
               if (selectedWeapon === "all" || itemWeapon === selectedWeapon) {
-                item.style.display = 'flex'; // Show item
+                item.style.display = 'flex'; 
               } else {
-                item.style.display = 'none'; // Hide item
+                item.style.display = 'none'; 
               }
             });
           }
 
-          // Listen to changes on the dropdown
+         
           weaponSelect.addEventListener('change', filterWeaponsBySelected);
 
-          // Filter on page load to show all weapons by default
+         
           document.addEventListener('DOMContentLoaded', filterWeaponsBySelected);
         </script>
     </body>
