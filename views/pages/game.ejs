@@ -5,15 +5,19 @@
 
 <html>
     <head>
+
+        
+        <link rel="stylesheet" href="/css/footer.css" />
+
         <title>SkinLab</title>
         <link rel="icon" sizes="180x180" href="/img/SkinLogo.webp">
         <link rel="stylesheet" href="/css/style.css"/>
         <title>SkinLab</title>
+
     </head>
     <body class = "game-body">
 
         <%- include('../partials/header', { activeTab: 'list' }) %>
-
    
         <div class="game-container">
             <h1>Game Page</h1>
@@ -83,6 +87,7 @@
         <script src="/js/case_simulator.js"></script>
         <script src="/js/trade_up_simulator.js"></script>
     
+        <%- include('../partials/footer', { activeTab: 'list' }) %>
     </body>
 
 

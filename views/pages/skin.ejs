@@ -3,33 +3,29 @@
       <title>SkinLab</title>
     <link rel="icon" sizes="180x180" href="/img/SkinLogo.webp">
         <link rel="stylesheet" href="/css/catalogue.css">
+        <link rel="stylesheet" href="/css/footer.css" />
     </head>
     <body>
-
-
         <%- include('../partials/header', { activeTab: 'list' }) %>
 
-        <% 
-          const uniqueWeapons = [...new Set(items.map(item => item.weapon))];
-        %>
-
-        <div class="tab-content">
-            <h2>Skin Catalogue</h2>
-            <form action="/refreshData" method="POST" style="display: inline;">
-                <input type="submit" value="Refresh Data">
-            </form>
-        </div>
+         <!-- weaponNames retrieves all weapon names from collection array uses a set to remove all duplicates and the ... converts the set back to an array.
+             this was done so that mulitiple of the same weapon name wouldnt appear in the weapon-selector -->
+             <!-- I used the Iterating set section on mdn web docs as well as a post from stackoverflow to get the understanding of ... that converts the set back to an array 
+              because without the ... operator the weapon names in the selector are [object Set]-->
+              <!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+                    https://stackoverflow.com/questions/63928416/how-does-new-setarray-work-in-javascript -->
+        <%  const weaponNames = [...new Set(items.map(item => item.weapon))]; %>
 
         <div class="DisplayWeapons">
-            <h3>Weapons List</h3>
+            <h3>Skin Catalogue</h3>
             
-            <!-- Dropdown to select weapon -->
+             <!-- dropdown box for selecting a weapon -->
             <div class="weapon-selector">
                 <label for="weaponSelect">Select a Weapon:</label>
                 <select id="weaponSelect">
-                    <!-- Instead of 'all', we start directly with "Desert Eagle" as the default -->
-                    <% uniqueWeapons.forEach(weapon => { %>
-                      <option value="<%= weapon %>" <%= (weapon === "Desert Eagle") ? "selected" : "" %>><%= weapon %></option>
+                   
+                    <% weaponNames.forEach(weapon => { %>
+                      <option value="<%= weapon %>"><%= weapon %></option>
                     <% }) %>
                 </select>
             </div>
@@ -46,38 +42,32 @@
                             <input type="hidden" name="id" value="<%= item.id %>">
                             <button type="submit">Add to Collection</button>
                           </form>
-                          <!-- <form action="/delete" method="POST" style="display: inline;">
-                            <input type="hidden" name="id" value="<%= item.id %>">
-                            <button type="submit">Delete</button>
-                          </form> -->
                         </div>
                       </li>
                     <% }) %>
                 </ul>
             </div>
         </div>
-
+        <%- include('../partials/footer') %>
         <script>
           const weaponSelect = document.getElementById('weaponSelect');
           const weaponItems = document.querySelectorAll('.weapon-item');
 
-          function filterWeaponsBySelected() {
+          function filterWeapons() {
             const selectedWeapon = weaponSelect.value;
             weaponItems.forEach(item => {
               const itemWeapon = item.getAttribute('data-weapon-name');
               if (itemWeapon === selectedWeapon) {
-                item.style.display = 'flex';  // show item
+                item.style.display = 'flex';  // displays all weapons selected by the combo box/selector
               } else {
-                item.style.display = 'none';  // hide item
+                item.style.display = 'none';  //doesnt display any weapon that is not selected by the combo box/selector
               }
             });
           }
 
           // Listen to changes on the dropdown
-          weaponSelect.addEventListener('change', filterWeaponsBySelected);
-
-          // Filter on page load to show only "Desert Eagle" by default
-          document.addEventListener('DOMContentLoaded', filterWeaponsBySelected);
+          weaponSelect.addEventListener('change', filterWeapons);
         </script>
+        </div>
     </body>
 </html>

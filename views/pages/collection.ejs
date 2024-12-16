@@ -1,33 +1,50 @@
+<!--
+  --- Collection Page ---
+ @Authour Sean Byrne - Student Number: 23343362
+This Page Contains all the weapons that have been added from the Skin Catalogue Page
+This Page has some of our Web Applications CRUD functionality such as READ and DELETE
+Users will be able to click on the Edit Weapon Button which will bring them to a seperate page that will allow them to edit and UPDATE the weapons skin name and pattern
+ -->
+
 <html>
     <head>
       <title>SkinLab</title>
     <link rel="icon" sizes="180x180" href="/img/SkinLogo.webp">
         <link rel="stylesheet" href="/css/catalogue.css">
+        <link rel="stylesheet" href="/css/footer.css" />
     </head>
     <body>
+      <!-- imports the header.ejs template onto the page -->
         <%- include('../partials/header', { activeTab: 'collection' }) %>
 
-
-
-        <% 
-          const uniqueWeapons = [...new Set(collection.map(item => item.weapon))];
-        %>
-
-        <div class="tab-content">
-            <h2>Your Collection</h2>
-            <form action="/refreshData" method="POST" style="display: inline;">
-                <input type="submit" value="Refresh Data">
-            </form>
-        </div>
+        <!-- weaponNames retrieves all weapon names from collection array uses a set to remove all duplicates and the ... converts the set back to an array.
+             this was done so that mulitiple of the same weapon name wouldnt appear in the weapon-selector -->
+             <!-- I used the Iterating set section on mdn web docs as well as a post from stackoverflow to get the understanding of ... that converts the set back to an array 
+              because without the ... operator the weapon names in the selector are [object Set]-->
+              <!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+                    https://stackoverflow.com/questions/63928416/how-does-new-setarray-work-in-javascript -->
+        <%  const weaponNames = [...new Set(collection.map(item => item.weapon))]; %>
 
         <div class="DisplayWeapons">
-            <h3>Weapons in Your Collection</h3>
+            <h3>Your Collection</h3>
             
+
+            <!-- dropdown box for selecting different weapon names within the collection -->
             <div class="weapon-selector">
                 <label for="weaponSelect">Select a Weapon:</label>
                 <select id="weaponSelect">
-                    <option value="all" selected>All</option> 
-                    <% uniqueWeapons.forEach(weapon => { %>
+                  <!-- if for displaying when there are no weapons in the users collection within the selector -->
+                  <% if (collection.length === 0 ) { %>
+                    <option value="all" selected>No weapons in your collection</option>
+                    <% } else { %>
+                      <!-- sets All as the starting option within the selector once a weapon is added to the collection-->
+                  <option value="all" selected>All</option> 
+                  <% } %>
+                    <!-- arrow function for displaying all the weapon names of weapons only within the collection page -->
+                    <% weaponNames.forEach(weapon => { %>
+
+
+
                       <option value="<%= weapon %>"><%= weapon %></option>
                     <% }) %>
                 </select>
@@ -40,26 +57,34 @@
                         <img src="<%= item.image %>" alt="weapon image" class="weapon-image">
                         <div class="weapon-name"><%= item.weapon %></div>
                         <div class="pattern-name"><%= item.pattern %></div>
-                        <div class="rarity-name"><%= item.rarity %></div>
                         <div class="actions">
+
+                          <!-- button for deleting/removing a weapon from the collection -->
+
                          
+
                           <form action="/delete" method="POST" style="display: inline;">
                             <input type="hidden" name="id" value="<%= item.id %>">
                             <button type="submit">Remove Weapon</button>
                           </form>
-                          <a href="/edit/<%= item.id %>">Edit</a>
+                          <!-- href for taking user to edit page for updating there weapon skins name -->
+                          <a href="/edit/<%= item.id %>">Edit Weapon</a>
                         </div>
                       </li>
                     <% }) %>
                 </ul>
             </div>
+            <form action="/refreshData" method="POST" style="display: inline;">
+                <input type="submit" value="Remove All">
+            </form>
         </div>
 
+        <%- include('../partials/footer') %>
         <script>
           const weaponSelect = document.getElementById('weaponSelect');
           const weaponItems = document.querySelectorAll('.weapon-item');
 
-          function filterWeaponsBySelected() {
+          function filterWeapons() {
             const selectedWeapon = weaponSelect.value;
             weaponItems.forEach(item => {
               const itemWeapon = item.getAttribute('data-weapon-name');
@@ -71,11 +96,12 @@
             });
           }
 
-         
-          weaponSelect.addEventListener('change', filterWeaponsBySelected);
+
+          // Listen to changes on the dropdown
+          weaponSelect.addEventListener('change', filterWeapons);
 
          
-          document.addEventListener('DOMContentLoaded', filterWeaponsBySelected);
+
         </script>
     </body>
 </html>
