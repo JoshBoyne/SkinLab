@@ -168,7 +168,8 @@ body.home-body {
 
 .featured-item img {
     width: auto;
-    height: 120px; 
+    height: 150px; 
+    margin-top:15px;
     object-fit: cover; 
     border-radius: 8px; 
 }

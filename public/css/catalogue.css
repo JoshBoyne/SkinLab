@@ -1,16 +1,17 @@
 
-/* @Authour Sean Byrne - Student Number: 23343362 */
-/* STYLING FOR BOTH THE COLLECTION AND SKIN PAGES */
+/* @Authour Sean Byrne - Student Number: 23343362 /
+/ STYLING FOR BOTH THE COLLECTION AND SKIN PAGES /
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 
-/* Consistent Styling for both pages */
+/ Consistent Styling for both pages */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   background-color: #5C6784;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .DisplayWeapons {
@@ -94,7 +95,7 @@ html, body {
 }
 
 /* Styling for the Add to collection button on the Skin Page */
-button {
+body .DisplayWeapons button {
   border: none;
   border-radius: 5px;
   background-color: #2E2E2E;
@@ -103,18 +104,18 @@ button {
   font-weight: bold;
 }
 
-button:hover{
+body .DisplayWeapons button:hover{
   background-color: #0056b3;
 }
 
 /* Stylings for the Remove weapon button and edit button on the Collection Page */
-.actions button{
+body .actions button{
   display: flex;
   align-items: center;
   margin-top:10px;
 }
 
-.actions a{
+body .DisplayWeapons .actions a{
   display: flex;
   justify-content: center;
   color: white;
@@ -122,13 +123,11 @@ button:hover{
   font-size: 14px;
 }
 
-.actions a:hover{
+body .DisplayWeapons .actions a:hover{
   color: #e6b800;
 }
-
-
 /* Styling for Refresh/Remove all button for the Collection */
-form input{
+body .DisplayWeapons form input{
   margin-left: 880px;
   border: none;
   border-radius: 5px;
@@ -138,8 +137,7 @@ form input{
   font-weight: bold;
   font-size:20px;
 }
-
-form input:hover {
+body .DisplayWeapons form input:hover {
   background-color: #0056b3;
 }
 
