@@ -1,3 +1,10 @@
+<!--
+  --- Skin Page ---
+ @Authour Sean Byrne - Student Number: 23343362
+This Page Contains all the weapons from the game CSGO, by clicking the add to collection button the user can add any weapon to the collection page
+This Page has some of our Web Applications CRUD functionality such as READ and CREATE
+ -->
+
 <html>
     <head>
       <title>SkinLab</title>
@@ -23,7 +30,7 @@
             <div class="weapon-selector">
                 <label for="weaponSelect">Select a Weapon:</label>
                 <select id="weaponSelect">
-                   
+                   <!-- for each arrow function for displaying the name of each weapon in the game in the selector/combobox -->
                     <% weaponNames.forEach(weapon => { %>
                       <option value="<%= weapon %>"><%= weapon %></option>
                     <% }) %>
@@ -32,12 +39,14 @@
             
             <div class="weapons-container">
                 <ul>
+                  <!-- for each arrow function for displaying each weapons image, name and pattern  -->
                     <% items.forEach(item => { %>
                       <li class="weapon-item" data-weapon-name="<%= item.weapon %>">
                         <img src="<%= item.image %>" alt="weapon image" class="weapon-image">
                         <div class="weapon-name"><%= item.weapon %></div>
                         <div class="pattern-name"><%= item.pattern %></div>
                         <div class="actions">
+                          <!-- form to send POST request to the collection endpoint within app.js -->
                           <form action="/collection" method="POST" style="display: inline;">
                             <input type="hidden" name="id" value="<%= item.id %>">
                             <button type="submit">Add to Collection</button>
@@ -48,11 +57,12 @@
                 </ul>
             </div>
         </div>
+        <!-- includes the footer.ejs template to display the footer for this page -->
         <%- include('../partials/footer') %>
         <script>
           const weaponSelect = document.getElementById('weaponSelect');
           const weaponItems = document.querySelectorAll('.weapon-item');
-
+          // function for filtering weapons within the collection based on the weapons name
           function filterWeapons() {
             const selectedWeapon = weaponSelect.value;
             weaponItems.forEach(item => {
@@ -65,7 +75,7 @@
             });
           }
 
-          // Listen to changes on the dropdown
+          // event listener to listen to any changes made from the dropdown box 
           weaponSelect.addEventListener('change', filterWeapons);
         </script>
         </div>
