@@ -2,7 +2,7 @@
   --- Collection Page ---
  @Authour Sean Byrne - Student Number: 23343362
 This Page Contains all the weapons that have been added from the Skin Catalogue Page
-This Page has some of our Web Applications CRUD functionality such as READ and DELETE
+This Page has some of our Web Applications CRUD functionality such as READ, EDIT and DELETE
 Users will be able to click on the Edit Weapon Button which will bring them to a seperate page that will allow them to edit and UPDATE the weapons skin name and pattern
  -->
 
@@ -43,15 +43,14 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
                     <!-- arrow function for displaying all the weapon names of weapons only within the collection page -->
                     <% weaponNames.forEach(weapon => { %>
 
-
-
                       <option value="<%= weapon %>"><%= weapon %></option>
                     <% }) %>
                 </select>
             </div>
-            
+            <!-- div that contains all the weapons in the collection --> 
             <div class="weapons-container">
                 <ul>
+                  <!-- for each arrow function for displaying the each of the individual weapons skins -->
                     <% collection.forEach(item => { %>
                       <li class="weapon-item" data-weapon-name="<%= item.weapon %>">
                         <img src="<%= item.image %>" alt="weapon image" class="weapon-image">
@@ -59,10 +58,8 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
                         <div class="pattern-name"><%= item.pattern %></div>
                         <div class="actions">
 
-                          <!-- button for deleting/removing a weapon from the collection -->
-
-                         
-
+                          <!-- button to send POST request to the delete endpoint within app.js for
+                               deleting/removing a weapon from the collection -->
                           <form action="/delete" method="POST" style="display: inline;">
                             <input type="hidden" name="id" value="<%= item.id %>">
                             <button type="submit">Remove Weapon</button>
@@ -74,18 +71,21 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
                     <% }) %>
                 </ul>
             </div>
+            <!-- form to send a POST request to the refreshData endpoint within app.js 
+                 refreshes/removes all the weapons that are being held in the collection array --> 
             <form action="/refreshData" method="POST" style="display: inline;">
                 <input type="submit" value="Remove All">
             </form>
         </div>
-
+        <!-- includes the footer.ejs template to display the footer for this page -->
         <%- include('../partials/footer') %>
         <script>
           const weaponSelect = document.getElementById('weaponSelect');
           const weaponItems = document.querySelectorAll('.weapon-item');
-
+          // function for filtering weapons within the collection based on the weapons name
           function filterWeapons() {
             const selectedWeapon = weaponSelect.value;
+            //for each arrow function for displaying weapons within the collection based on the selected weapon name in the dropdown box/combo box
             weaponItems.forEach(item => {
               const itemWeapon = item.getAttribute('data-weapon-name');
               if (selectedWeapon === "all" || itemWeapon === selectedWeapon) {
@@ -96,12 +96,9 @@ Users will be able to click on the Edit Weapon Button which will bring them to a
             });
           }
 
-
-          // Listen to changes on the dropdown
+          // event listener to listent to any changes made from the dropdown box
           weaponSelect.addEventListener('change', filterWeapons);
-
-         
-
+ 
         </script>
     </body>
 </html>

@@ -15,7 +15,8 @@
   <div class="DisplayWeapon">
     
     <h1>Edit Weapon</h1>
-    <!-- form that UPDATES the weapon name and pattern of selected weapon from the users collection -->
+    <!-- form to send a POST request to the updateWeapon endpoint within app.js
+         Updates both the weapons name and pattern -->
     <form action="/updateWeapon" method="POST">
       <img src="<%= weapon.image %>" alt="<%= weapon.weapon %>" style="width:250px; height: 200px;">
       <input type="hidden" name="id" value="<%= weapon.id %>">
@@ -23,13 +24,13 @@
       <input class="textField" type="text" id="name" name="weapon" value="<%= weapon.weapon %>" required>
       <label for="pattern">Weapon Pattern:</label>
       <input class="textField "type="text" id="pattern" name="pattern" value="<%= weapon.pattern %>" required>
-        <!-- button that UPDATES the weapons name and pattern -->
+        <!-- button that submits the POST request to update the weapons name and pattern -->
       <button type="submit">Update Weapon</button>
     </form>
   </div>
   </div>
 
-        <!-- imports the footer.ejs template onto the page -->
+        <!-- includes the footer.ejs template to display the footer for this page -->
         <%- include('../partials/footer') %>
     </body>
 </html>

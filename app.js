@@ -198,6 +198,8 @@ app.post("/addToCollection", (req, res) => {
     An image of every weapon with a skin pattern will have a button allowing the user to add to a collection (this would be the Add for the CRUD functionality).
     CRUD FUNCTIONALITY - within the collection, users can delete (remove weapon from collection) or update (change weapon from collection to another weapon).
 */
+
+// route handler for getting the GET request from the skin endpoint, renders the skin page with all weapon names, patterns and images
 app.get("/skin",(req, res) => {
   res.render("pages/skin", {items: items, activeTab: "skin" });
 });
@@ -215,26 +217,7 @@ app.post("/refreshData", async (req, res) => {
 
 let collection = []; // stores selected weapons from skin page within an array called collection
 
-// Skin Page
-/* Keep until we dont need it
-app.get("/skin", async (req, res) => {
-  try {
-    const skins = await fetchData();
-    res.render("pages/skin", { activeTab: "skin", skins });
-  } catch (error) {
-    console.error("Error fetching skins for skin page:", error.message);
-    res.render("pages/skin", { activeTab: "skin", skins: [] });
-  }
-});
-*/
 
-
-// Use for adding skin to collection
-/*
-app.post("/skin", (req, res) => {
-  const { name, value } = req.body;
-});
-*/
 
 //route handler for collection POST endpoint
 // function adds selected weapons from the skin page to the collection page 
@@ -254,7 +237,7 @@ app.get("/collection", (req, res) => {
 });
 
 
-// Use for collection page
+// route handler for getting GET requests from edit endpoint, renders editWeapon page for editing and updating selected weapons from the collection page
 app.get("/edit/:id", (req, res) => {
   const weapon = collection.find((weapon) => weapon.id === parseInt(req.params.id));
   if (weapon) {
@@ -264,7 +247,7 @@ app.get("/edit/:id", (req, res) => {
   }
 });
 
-// Use for collection page
+// route handler for sending POST requests to collection endpoint, renders collection page with selected weapons from skin page
 app.post("/updateWeapon", (req, res) => {
   const { id, weapon, pattern, image } = req.body;
   const weaponIndex = collection.findIndex((item) => item.id === parseInt(id));
@@ -278,9 +261,10 @@ app.post("/updateWeapon", (req, res) => {
   res.redirect("collection");
 });
 
-/* We referenced Abduls notes for this section 
- */
-// Handle Deleting an Item
+// handles deleting an weapon from the collection page
+
+/* We referenced Abduls notes for this section */
+
 app.post("/delete", (req, res) => {
   const { id } = req.body;
   collection = collection.filter((item) => item.id !== parseInt(id));
