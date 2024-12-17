@@ -1,6 +1,7 @@
 /*
 @Authour Joshua Boyne - Student Number: 23343338
     ---Bar graph js file---
+    This is the logic behind the creation of the bar graph for the "Home" section of the website
 */
 
 document.addEventListener("DOMContentLoaded", async () => {

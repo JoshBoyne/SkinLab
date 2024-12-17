@@ -1,3 +1,9 @@
+/*
+@Authour Joshua Boyne - Student Number: 23343338
+    ---Case Simulator js file---
+    This is the logic for the case simulator section of the "Game" page
+*/
+
 document.addEventListener("DOMContentLoaded", async () => {
     const caseDropdown = document.getElementById("caseDropdown");
     const skinsDisplay = document.getElementById("skinsDisplay");
@@ -13,7 +19,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         caseDropdown.appendChild(option);
     });
 
-    
+    /*this dynamically updates the displayed skins based on the selected case from the dropdown menu. 
+      It clears the previous content and displays the skins with their respective image and description in rows of 6
+    */
     caseDropdown.addEventListener("change", (event) => {
         const selectedCase = event.target.value;
         const skins = data[selectedCase];
