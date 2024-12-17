@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         caseDropdown.appendChild(option);
     });
 
-    
+    /*
+    This dynamically updates the displayed skins based on the selected case from the dropdown menu
+    */
     caseDropdown.addEventListener("change", (event) => {
         const selectedCase = event.target.value;
         const skins = data[selectedCase];

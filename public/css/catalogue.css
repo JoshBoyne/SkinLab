@@ -1,11 +1,11 @@
 
 /* @Authour Sean Byrne - Student Number: 23343362 /
-/ STYLING FOR BOTH THE COLLECTION AND SKIN PAGES /
+/* STYLING FOR BOTH THE COLLECTION AND SKIN PAGES */
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 
-/ Consistent Styling for both pages */
+/* Consistent Styling for both pages */
 html, body {
   margin: 0;
   padding: 0;
