@@ -41,7 +41,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await response.json();
     }
 });
-
+/*
+ updates the displayed skins when case is selected from the dropdown menu
+ clears previous skins and scrolls to the top before displaying new skins
+*/
 caseDropdown.addEventListener("change", (event) => {
     const selectedCase = event.target.value;
     const skins = data[selectedCase];
