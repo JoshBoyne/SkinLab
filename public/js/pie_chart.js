@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         currentPieChart.destroy(); // gets rid of old chart
         currentPieChart = createPieChart(pieChartCanvas, chartData[selectedOption]);
     });
-
+/* We referenced Abduls notes for this section 
+ */
     function createPieChart(canvas, data) {//creates chart with data from dropdown box
         return new Chart(canvas, {
             type: "pie",

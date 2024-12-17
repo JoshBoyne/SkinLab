@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         currentBarChart = createBarChart(barChartCanvas, chartData[selectedOption]);
     });
 
+    /* We referenced Abduls notes for this section 
+ */
     function createBarChart(canvas, data) {//creates the chart with the data from the dropdown box
         return new Chart(canvas, {
             type: "bar",

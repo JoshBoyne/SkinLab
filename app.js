@@ -1,9 +1,11 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const fetchData = require("./modules/cache_data.js");
-const app = express();
-const PORT = 3000;
-const fetchCrates = require("./modules/fetchCrates");
+/* We referenced Abduls notes for this section 
+ */
+const express = require("express");// set up server
+const bodyParser = require("body-parser");//middleware to parse incoming request
+const fetchData = require("./modules/cache_data.js");//fetch data from api
+const app = express();//create instance of express application
+const PORT = 3000;//defines port which server will run on
+const fetchCrates = require("./modules/fetchCrates");//fetch crate data
 
 
 let items = [];
@@ -16,6 +18,10 @@ const fs = require("fs");
 })();
 
 /*@Authour Joshua Boyne - Student Number: 23343338 
+
+  retrieves crate data using "fetchCrates" function 
+  if successful, returns crates as json
+  if error, logs error message and responds with 500 status code and error message
 */
 app.get("/api/crates", async (req, res) => {
   try {
@@ -27,7 +33,8 @@ app.get("/api/crates", async (req, res) => {
   }
 });
 
-
+/* We referenced Abduls notes for this section 
+ */
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
@@ -38,6 +45,10 @@ app.set("view engine", "ejs");
 /*@Authour Joshua Boyne - Student Number: 23343338 
 */
 // Home Page
+/*
+  fetches the skin data and extracts the the unique weapon skins to render the home page
+  populates the carousel with skins (only 20)
+*/
 app.get("/", async (req, res) => {
   try {
     const skins = await fetchData(); 
@@ -60,6 +71,9 @@ app.get("/", async (req, res) => {
 });
 
 /*@Authour Joshua Boyne - Student Number: 23343338 
+
+  this functions gets the the skins from the skins list and checks for duplicates based on the weapon name
+  store the first occurrence of each weapon in an object and returns an array of skins 
 */
 function getUniqueWeaponSkins(skins) {
   const uniqueSkins = {};
@@ -72,6 +86,10 @@ function getUniqueWeaponSkins(skins) {
 }
 
 /*@Authour Joshua Boyne - Student Number: 23343338 
+
+  route that provides the api endpoint to fetch and return the skin data in JSON
+  if data retrieval is successful, skins are sent as a JSON response 
+  otherwise 500 error message will appear
 */
 app.get("/api/skins", async (req, res) => {
   try {
@@ -84,15 +102,28 @@ app.get("/api/skins", async (req, res) => {
 });
 
 /*@Authour Joshua Boyne - Student Number: 23343338 
+  /game
+  renders the game page and sets the active tab to "game" for the navigation
+
+  /api/collection
+  provides an api endpoint that returns the current collection data in JSON format
 */
-// Game Page
+
 app.get("/game", (req, res) => {
   res.render("pages/game", { activeTab: "game" });
 });
 app.get("/api/collection", (req, res) => {
   res.json(collection);
 });
+
+
 /*@Authour Joshua Boyne - Student Number: 23343338 
+
+  handles the tradeup process by accepting 6 skins
+  validates if exactly 6 skins are provided
+  removes the selected skins from the collection
+  updates the collection 
+  if it fails, responds with 400 error 
 */
 app.post("/api/tradeUp", (req, res) => {
   const { skins } = req.body;
@@ -131,13 +162,19 @@ app.get("/chart", (req, res) => {
 
 /*@Authour Joshua Boyne - Student Number: 23343338 
 */
-//  Provide chart data
+
+/* 
+  generates and returns a data for the chart by getting item names and their values as json
+*/
 app.get("/api/chart-data", (req, res) => {
   const labels = items.map((item) => item.name);
   const values = items.map((item) => item.value);
   res.json({ labels, values });
 });
 
+/* for case opening game  
+  adds a new skins to the users collection, making sure it doesnt exist already 
+ */
 app.post("/addToCollection", (req, res) => {
   console.log("Received skin:", req.body.skin); 
   const { skin } = req.body;
@@ -165,6 +202,9 @@ app.get("/skin",(req, res) => {
   res.render("pages/skin", {items: items, activeTab: "skin" });
 });
 
+
+/* We referenced Abduls notes for this section 
+ */
 //route handler for POST request from refreshData endpoint, removes all weapons from collection
 app.post("/refreshData", async (req, res) => {
  collection = []; 
@@ -173,15 +213,7 @@ app.post("/refreshData", async (req, res) => {
 });
 
 
-
-
-
-
-
-
 let collection = []; // stores selected weapons from skin page within an array called collection
-
-
 
 // Skin Page
 /* Keep until we dont need it
@@ -246,6 +278,8 @@ app.post("/updateWeapon", (req, res) => {
   res.redirect("collection");
 });
 
+/* We referenced Abduls notes for this section 
+ */
 // Handle Deleting an Item
 app.post("/delete", (req, res) => {
   const { id } = req.body;
@@ -255,7 +289,8 @@ app.post("/delete", (req, res) => {
 
 
 
-
+/* We referenced Abduls notes for this section 
+ */
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
